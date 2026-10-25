@@ -10,7 +10,7 @@
 
 **Hieroglyph Studio** è una piattaforma web scientifica open-source progettata per l'analisi epigrafica, il riconoscimento computazionale di glifi e lo studio filologico del **Medio Egizio** (Egiziano Classico). 
 
-L'applicazione è **100% statica e client-side**: non richiede server backend o database esterni, funziona interamente nel browser garantendo la massima velocità di calcolo, privacy assoluta dei dati archeologici e piena usabilità **offline** su **GitHub Pages**.
+L'applicazione è **100% statica e client-side**: non richiede server backend o database esterni, funziona interamente nel browser garantendo la massima velocità di calcolo, privacy assoluta dei dati archeologici e piena usabilità **offline**.
 
 ---
 
@@ -106,26 +106,6 @@ Hieroglyph Studio integra due ambienti di lavoro complementari collegati in temp
 | <kbd>Ctrl + O</kbd> | Carica Progetto salvato |
 | <kbd>Ctrl + Z</kbd> / <kbd>Ctrl + Y</kbd> | Annulla / Ripeti (Cronologia Undo/Redo) |
 | <kbd>Canc</kbd> | Elimina Snap / Glifo selezionato |
-
----
-
-## 🚀 Come Pubblicare su GitHub Pages
-
-1. **Clona o carica i file** sul tuo repository GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Hieroglyph Studio & Landing Page"
-   git branch -M main
-   git remote add origin https://github.com/<TUO-USERNAME>/<NOME-REPO>.git
-   git push -u origin main
-   ```
-2. Vai su **Settings** del tuo repository su GitHub.
-3. Nel menu laterale seleziona **Pages**.
-4. Sotto **Build and deployment > Branch**, seleziona:
-   - Branch: `main`
-   - Cartella: `/ (root)`
-5. Clicca su **Save**. Dopo pochi istanti il tuo sito sarà online su `https://<TUO-USERNAME>.github.io/<NOME-REPO>/`.
 
 ---
 
