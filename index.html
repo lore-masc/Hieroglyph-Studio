@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hieroglyph Studio — Epigrafia Digitale & Grammatica del Medio Egizio</title>
+  <meta name="description" content="Piattaforma scientifica 100% client-side per l'analisi epigrafica, il riconoscimento di glifi Gardiner e il laboratorio filologico del Medio Egizio in 5+5 fasi integrate." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231e1e2e'/%3E%3Cstop offset='100%25' stop-color='%2311111b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f9e2af'/%3E%3Cstop offset='100%25' stop-color='%23fab387'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23bg)' stroke='%23f9e2af' stroke-width='2.5'/%3E%3Crect x='6' y='6' width='52' height='52' rx='10' fill='none' stroke='%2345475a' stroke-width='1' stroke-dasharray='4 2'/%3E%3Ctext x='32' y='46' font-size='38' text-anchor='middle' fill='url(%23gold)' font-family='Segoe UI Historic, Noto Sans Egyptian Hieroglyphs, serif'%3E%F0%93%8B%B9%3C/text%3E%3C/svg%3E" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0f0f17;
+      --bg-alt: #141420;
+      --panel: #181825;
+      --panel-elevated: #1e1e2e;
+      --surface: #262738;
+      --surface-border: #313244;
+      --border-gold: rgba(249, 226, 175, 0.4);
+      
+      --text: #cdd6f4;
+      --text-muted: #9399b2;
+      --text-dim: #6c7086;
+      
+      --gold: #f9e2af;
+      --gold-dark: #fab387;
+      --gold-glow: rgba(249, 226, 175, 0.2);
+      
+      --teal: #94e2d5;
+      --blue: #89b4fa;
+      --green: #a6e3a1;
+      --mauve: #cba6f7;
+      --red: #f38ba8;
+      --peach: #fab387;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      
+      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 10px 32px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 32px rgba(249, 226, 175, 0.15);
+      
+      --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--surface-border) var(--bg);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(249, 226, 175, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 45%, rgba(148, 226, 213, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(203, 166, 247, 0.03) 0%, transparent 40%);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(15, 15, 23, 0.88);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 14px 0;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.2px;
+    }
+
+    .brand-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1e1e2e, #11111b);
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(249, 226, 175, 0.25);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f9e2af 0%, #fab387 100%);
+      color: #11111b;
+      box-shadow: 0 4px 18px rgba(249, 226, 175, 0.3);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(249, 226, 175, 0.45);
+    }
+
+    .btn-outline {
+      background: rgba(30, 30, 46, 0.65);
+      border-color: var(--surface-border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface);
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 1.05rem;
+      border-radius: var(--radius-lg);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 70px 0 50px 0;
+      text-align: center;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(249, 226, 175, 0.08);
+      border: 1px solid var(--border-gold);
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #f9e2af 20%, #fab387 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .hero-description {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      max-width: 820px;
+      margin: 0 auto 34px auto;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 45px;
+    }
+
+    /* Dual Macro Architecture Switcher */
+    .dual-nav-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px auto 10px auto;
+      max-width: 980px;
+    }
+
+    .dual-box {
+      background: var(--panel);
+      border: 1.5px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .dual-box:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md), 0 0 20px rgba(249, 226, 175, 0.1);
+    }
+
+    .dual-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      flex-shrink: 0;
+    }
+
+    .dual-box.epigraphy .dual-icon {
+      background: rgba(166, 227, 161, 0.15);
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+
+    .dual-box.grammar .dual-icon {
+      background: rgba(148, 226, 213, 0.15);
+      border: 1px solid var(--teal);
+      color: var(--teal);
+    }
+
+    .dual-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dual-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Sections */
+    section.macro-section {
+      padding: 85px 0 60px 0;
+      border-top: 1px solid var(--surface-border);
+    }
+
+    .section-header-macro {
+      margin-bottom: 55px;
+      text-align: center;
+    }
+
+    .macro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    .macro-badge.epigraphy {
+      background: rgba(166, 227, 161, 0.12);
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+
+    .macro-badge.grammar {
+      background: rgba(148, 226, 213, 0.12);
+      border: 1px solid var(--teal);
+      color: var(--teal);
+    }
+
+    .macro-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .macro-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    /* Phase Card Layout */
+    .phase-card {
+      background: var(--panel);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      margin-bottom: 45px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .phase-card:hover {
+      border-color: rgba(249, 226, 175, 0.5);
+      box-shadow: var(--shadow-md), 0 0 24px rgba(249, 226, 175, 0.06);
+    }
+
+    .phase-card.alt-dir {
+      grid-template-columns: 1.15fr 1fr;
+    }
+
+    .phase-card.alt-dir .phase-info {
+      order: 2;
+    }
+    .phase-card.alt-dir .phase-screen-wrapper {
+      order: 1;
+    }
+
+    .phase-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .phase-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-family: 'Fira Code', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pill-green { background: rgba(166, 227, 161, 0.15); color: var(--green); border: 1px solid rgba(166, 227, 161, 0.35); }
+    .pill-teal { background: rgba(148, 226, 213, 0.15); color: var(--teal); border: 1px solid rgba(148, 226, 213, 0.35); }
+    .pill-gold { background: rgba(249, 226, 175, 0.15); color: var(--gold); border: 1px solid rgba(249, 226, 175, 0.35); }
+    .pill-blue { background: rgba(137, 180, 250, 0.15); color: var(--blue); border: 1px solid rgba(137, 180, 250, 0.35); }
+    .pill-mauve { background: rgba(203, 166, 247, 0.15); color: var(--mauve); border: 1px solid rgba(203, 166, 247, 0.35); }
+
+    .phase-heading {
+      font-size: 1.48rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+
+    .phase-text {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+
+    .phase-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 4px;
+    }
+
+    .phase-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.91rem;
+      color: var(--text);
+    }
+
+    .phase-features li .ico {
+      font-weight: 800;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* REALISTIC UI SCREENS REPRODUCTION */
+    .phase-screen-wrapper {
+      background: var(--panel-elevated);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .screen-header-bar {
+      background: #11111b;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--surface-border);
+      font-size: 0.74rem;
+      font-family: 'Fira Code', monospace;
+      color: var(--text-dim);
+    }
+
+    .screen-window-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .screen-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .dot-r { background: var(--red); }
+    .dot-y { background: var(--gold); }
+    .dot-g { background: var(--green); }
+
+    .screen-content-body {
+      background: #181825;
+      padding: 16px;
+      font-size: 0.8rem;
+    }
+
+    /* UI Components Inside Screens */
+    .real-card {
+      background: #1e1e2e;
+      border: 1px solid #313244;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .real-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .real-card-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .real-select {
+      width: 100%;
+      background: #11111b;
+      color: #cdd6f4;
+      border: 1px solid #45475a;
+      border-radius: 5px;
+      padding: 6px 8px;
+      font-size: 0.76rem;
+      font-family: inherit;
+      margin-bottom: 8px;
+    }
+
+    .real-slider-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.72rem;
+      color: #a6adc8;
+    }
+
+    .real-slider-val {
+      color: var(--blue);
+      font-weight: 700;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .real-slider-bar {
+      height: 4px;
+      background: #313244;
+      border-radius: 2px;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .real-slider-fill {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 2px;
+    }
+
+    .real-diag-box {
+      background: rgba(137, 180, 250, 0.08);
+      border: 1px solid rgba(137, 180, 250, 0.25);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      color: #cdd6f4;
+      line-height: 1.4;
+    }
+
+    /* Realistic Glyph Canvas Simulation */
+    .real-canvas-view {
+      background: radial-gradient(circle at 50% 50%, #2b2b3d 0%, #151522 100%);
+      border: 1px solid #313244;
+      border-radius: 8px;
+      height: 220px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .real-stela-bg {
+      width: 90%;
+      height: 84%;
+      background: linear-gradient(135deg, #323348 0%, #20202e 100%);
+      border: 1.5px dashed #585b70;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 10px;
+    }
+
+    .real-glyph-box {
+      position: relative;
+      padding: 8px 14px;
+      border: 2px solid var(--green);
+      background: rgba(166, 227, 161, 0.12);
+      border-radius: 6px;
+      text-align: center;
+      box-shadow: 0 0 14px rgba(166, 227, 161, 0.3);
+    }
+
+    .real-glyph-tag {
+      position: absolute;
+      top: -9px;
+      left: 6px;
+      background: var(--green);
+      color: #11111b;
+      font-weight: 800;
+      font-size: 0.65rem;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    .real-glyph-symbol {
+      font-size: 2.8rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .real-glyph-code {
+      font-size: 0.7rem;
+      font-family: 'Fira Code', monospace;
+      color: var(--teal);
+      margin-top: 4px;
+    }
+
+    .real-toolbar-strip {
+      display: flex;
+      gap: 5px;
+      background: #11111b;
+      padding: 6px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      border: 1px solid #313244;
+    }
+
+    .real-tool-btn {
+      background: #262738;
+      border: 1px solid #45475a;
+      color: var(--text);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: default;
+    }
+
+    .real-tool-btn.active {
+      background: var(--gold);
+      color: #11111b;
+      font-weight: 700;
+      border-color: var(--gold);
+    }
+
+    /* Gardiner Grid Mock */
+    .real-gardiner-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .real-gardiner-item {
+      background: #262738;
+      border: 1px solid #313244;
+      border-radius: 6px;
+      padding: 6px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .real-gardiner-item.selected {
+      border-color: var(--green);
+      background: rgba(166, 227, 161, 0.1);
+    }
+
+    .real-gardiner-char {
+      font-size: 1.5rem;
+      color: var(--gold);
+      line-height: 1.1;
+    }
+
+    .real-gardiner-id {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Word Segmentation Mock */
+    .real-word-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #262738;
+      border: 1px solid #313244;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+    }
+
+    .real-word-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .real-word-hieros {
+      font-size: 1.25rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .real-word-badge {
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    /* Grammar Inspector Mock */
+    .real-grammar-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.74rem;
+    }
+
+    .real-grammar-table th {
+      text-align: left;
+      color: var(--text-dim);
+      padding: 4px 6px;
+      border-bottom: 1px solid #313244;
+    }
+
+    .real-grammar-table td {
+      padding: 6px 6px;
+      border-bottom: 1px solid rgba(49, 50, 68, 0.4);
+      color: var(--text);
+    }
+
+    .real-rule-alert {
+      background: rgba(166, 227, 161, 0.1);
+      border-left: 3px solid var(--green);
+      padding: 6px 8px;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.72rem;
+      color: #cdd6f4;
+      margin-bottom: 6px;
+    }
+
+    .real-rule-warn {
+      background: rgba(249, 226, 175, 0.1);
+      border-left: 3px solid var(--gold);
+      padding: 6px 8px;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.72rem;
+      color: #cdd6f4;
+      margin-bottom: 6px;
+    }
+
+    /* Shortcuts Section */
+    .shortcuts-section {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--surface-border);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 70px 0;
+    }
+
+    .shortcuts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .shortcut-card {
+      background: var(--panel);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kbd-tag {
+      background: #11111b;
+      border: 1px solid #45475a;
+      color: var(--gold);
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      box-shadow: 0 2px 0 #313244;
+    }
+
+    /* Final CTA */
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(30, 30, 46, 0.95) 0%, rgba(20, 20, 32, 0.98) 100%);
+      border: 1.5px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: 55px 35px;
+      text-align: center;
+      box-shadow: var(--shadow-glow);
+      margin: 60px 0 80px 0;
+      position: relative;
+    }
+
+    .cta-banner h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.3rem;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .cta-banner p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 640px;
+      margin: 0 auto 30px auto;
+    }
+
+    /* Footer */
+    footer.site-footer {
+      background: #09090f;
+      border-top: 1px solid var(--surface-border);
+      padding: 35px 0 25px 0;
+      color: var(--text-dim);
+      font-size: 0.86rem;
+    }
+
+    .footer-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-title { font-size: 2.2rem; }
+      .phase-card, .phase-card.alt-dir {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .phase-card.alt-dir .phase-info { order: 1; }
+      .phase-card.alt-dir .phase-screen-wrapper { order: 2; }
+      .dual-nav-banner { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-logo">
+        <div class="brand-icon-box">𓋹</div>
+        <span>Hieroglyph Studio</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#fasi-epigrafia">🏛️ 5 Fasi Epigrafia</a></li>
+        <li><a href="#fasi-grammatica">📜 5 Fasi Grammatica</a></li>
+        <li><a href="#scorciatoie">⌨️ Scorciatoie</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- PULSANTE DIRETTO PER APRIRE LA PIATTAFORMA -->
+        <a href="hieroglyph_studio.html" class="btn btn-gold" id="btnLaunchAppNav" title="Avvia la piattaforma interattiva">
+          <span>🚀 Apri Hieroglyph Studio</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section">
+      <div class="container">
+        <div class="badge-pill">
+          <span>𓏛 Piattaforma Scientifica 100% Client-Side &amp; Open Source</span>
+        </div>
+
+        <h1 class="hero-title">
+          Studio Epigrafico &amp; Laboratorio Filologico<br />
+          <span>per l'Antico Egizio (Medio Egizio)</span>
+        </h1>
+
+        <p class="hero-description">
+          Uno strumento specialistico completo per l'epigrafia computazionale e la filologia egittologica. Dalla fotografia del reperto archeologico all'esaltazione dei solchi incisi, segmentazione vettoriale, classificazione Gardiner e analisi morfosintattica del testo in 10 fasi integrate.
+        </p>
+
+        <!-- Main Call To Action Button -->
+        <div class="hero-cta-group">
+          <a href="hieroglyph_studio.html" class="btn btn-gold btn-lg" id="btnHeroLaunch">
+            <span>🚀 Avvia Hieroglyph Studio</span>
+            <span style="font-size: 1.2rem;">&rarr;</span>
+          </a>
+          <a href="#fasi-epigrafia" class="btn btn-outline btn-lg">
+            <span>Esplora le 10 Fasi</span>
+          </a>
+        </div>
+
+        <!-- Macro-Areas Switcher Banner -->
+        <div class="dual-nav-banner">
+          <a href="#fasi-epigrafia" class="dual-box epigraphy">
+            <div class="dual-icon">🏛️</div>
+            <div>
+              <div class="dual-title">Parte 1: Studio Epigrafico <span style="color:var(--green); font-size:0.8rem;">(5 Fasi)</span></div>
+              <div class="dual-sub">Filtri adattivi, snap vettoriali, silhouette, catalogo Gardiner e segmentazione parole.</div>
+            </div>
+          </a>
+
+          <a href="#fasi-grammatica" class="dual-box grammar">
+            <div class="dual-icon">📜</div>
+            <div>
+              <div class="dual-title">Parte 2: Grammatica &amp; Medio Egizio <span style="color:var(--teal); font-size:0.8rem;">(5 Fasi)</span></div>
+              <div class="dual-sub">Sequenza di lettura, correzione traslitterazione, tempi verbali sḏm.f e verifica concordanze.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SEZIONE 1: LE 5 FASI DELLA PARTE EPIGRAFICA
+         ========================================================================= -->
+    <section id="fasi-epigrafia" class="macro-section">
+      <div class="container">
+        <div class="section-header-macro">
+          <div class="macro-badge epigraphy">🏛️ Modulo Epigrafico</div>
+          <h2 class="macro-title">Le 5 Fasi dello Studio Epigrafico</h2>
+          <p class="macro-desc">
+            Dall'acquisizione dell'immagine ad alta risoluzione o webcam alla calibrazione dei solchi incisi, isolamento vettoriale e classificazione del catalogo Gardiner.
+          </p>
+        </div>
+
+        <!-- FASE EPIGRAFICA 1 -->
+        <div class="phase-card">
+          <div class="phase-info">
+            <span class="phase-pill pill-green">Fase Epigrafica 1</span>
+            <h3 class="phase-heading">Modalità Esaltazione Bordi &amp; Diagnosi Auto-Edge</h3>
+            <p class="phase-text">
+              Algoritmi integrati di visione computazionale calibrati sulla polarità della pietra, contrasto locale e illuminazione radente per far risaltare anche i rilievi più erosi o pigmenti sbiaditi su papiro.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Algoritmi Multi-Filtro:</strong> Automatica Adattiva (Multi-Scala), Ibrido Pietra + Contorni Dorati, Gradiente Normalizzato, Luce Radente Direzionale a 135° e Facsimile Epigrafico B/N.</li>
+              <li><span class="ico">✦</span> <strong>Controlli Fine:</strong> Guadagno Contrasto Incisioni (0.5x–3.5x), Forza Bordi/Incavo, Sensibilità Soglia Bordi (20–240) e Inversione Chiaro/Scuro.</li>
+              <li><span class="ico">✦</span> <strong>Filtro Annotazioni Museali:</strong> Soppressione automatica di marcatori o vernici moderne gialle/rosse sui reperti.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup 1 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>PANNELLO 1: ESALTAZIONE BORDI</span>
+              <span style="color:var(--green);">AUTO-CALIBRAZIONE</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>1. Modalità Esaltazione Bordi</span>
+                  <span style="font-size:0.65rem; color:var(--green);">✓ ON</span>
+                </div>
+                <select class="real-select">
+                  <option>✨ Automatica Adattiva (Multi-Scala + Polarità)</option>
+                  <option>Ibrido Classico (Pietra + Contorni Dorati)</option>
+                  <option>Luce Radente (Rilievo Direzionale 135°)</option>
+                  <option>Facsimile Epigrafico (Soglia Adattiva B/N)</option>
+                </select>
+
+                <div class="real-diag-box" style="margin-bottom:10px;">
+                  <b>🪄 Diagnosi Auto-Edge:</b> Reperto calcarenitico rilevato • Contrasto locale 1.6x • Soppressione marcatori attiva.
+                </div>
+
+                <div class="real-slider-row"><span>Guadagno Contrasto Incisioni</span><span class="real-slider-val">1.6</span></div>
+                <div class="real-slider-bar"><div class="real-slider-fill" style="width: 55%;"></div></div>
+
+                <div class="real-slider-row"><span>Forza Bordi / Incavo</span><span class="real-slider-val">1.5</span></div>
+                <div class="real-slider-bar"><div class="real-slider-fill" style="width: 50%;"></div></div>
+
+                <div class="real-slider-row"><span>Sensibilità Soglia Bordi</span><span class="real-slider-val">115</span></div>
+                <div class="real-slider-bar"><div class="real-slider-fill" style="width: 48%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE EPIGRAFICA 2 -->
+        <div class="phase-card alt-dir">
+          <div class="phase-info">
+            <span class="phase-pill pill-gold">Fase Epigrafica 2</span>
+            <h3 class="phase-heading">Modifica Snap, Silhouette &amp; Geometria Vettoriale</h3>
+            <p class="phase-text">
+              Delineazione e isolamento dei glifi mediante una suite completa di strumenti epigrafici a mano libera o assistiti, con supporto a poligoni arbitrari e cartigli reali.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Strumenti di Selezione:</strong> Rettangolo Snap (<kbd class="kbd-tag">R</kbd>), Pennello Area Glifo (<kbd class="kbd-tag">B</kbd>), Lazo (<kbd class="kbd-tag">L</kbd>) e Bacchetta Magica Epigrafica (<kbd class="kbd-tag">W</kbd>).</li>
+              <li><span class="ico">✦</span> <strong>Modellazione Poligonale:</strong> Contorni rettangolari, ellissi e cartigli a 16 vertici, ottagoni smussati e suddivisione densa dei vertici.</li>
+              <li><span class="ico">✦</span> <strong>Auto-Snap &amp; Micro-Aggiustamento:</strong> Calcolo silhouette verde ad alta precisione con funzioni <em>Stringi Bordo (-2px)</em> e <em>Allarga Bordo (+2px)</em>.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup 2 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>CANVAS EPIGRAFICO — SNAP &amp; POLIGONI</span>
+              <span style="color:var(--gold);">SNAP #1 ATTIVO</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-toolbar-strip">
+                <div class="real-tool-btn">🔲 Rettangolo (R)</div>
+                <div class="real-tool-btn active">🖌️ Pennello (B)</div>
+                <div class="real-tool-btn">➰ Lazo (L)</div>
+                <div class="real-tool-btn">🪄 Bacchetta (W)</div>
+              </div>
+
+              <div class="real-canvas-view">
+                <div class="real-stela-bg">
+                  <div class="real-glyph-box">
+                    <span class="real-glyph-tag">#1 S34 (ˁnḫ)</span>
+                    <div class="real-glyph-symbol">𓋹</div>
+                    <div class="real-glyph-code">Vertici: 16 (Cartiglio)</div>
+                  </div>
+
+                  <div class="real-glyph-box" style="border-color:var(--blue); background:rgba(137,180,250,0.1);">
+                    <span class="real-glyph-tag" style="background:var(--blue);">#2 U28 (ḏꜣ)</span>
+                    <div class="real-glyph-symbol">𓍑</div>
+                    <div class="real-glyph-code">Bordo: Rilevato</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE EPIGRAFICA 3 -->
+        <div class="phase-card">
+          <div class="phase-info">
+            <span class="phase-pill pill-teal">Fase Epigrafica 3</span>
+            <h3 class="phase-heading">Riconoscimento &amp; Sostituzione Glifo (Gardiner Sign-List)</h3>
+            <p class="phase-text">
+              Motore di classificazione automatica e catalogo interattivo di oltre 1000 caratteri geroglifici Unicode, con 508 forme curate ad alta frequenza epigrafica.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Riconoscimento Basato sulla Forma:</strong> Confronto della silhouette vettoriale dello snap con la banca dati dei glifi per suggerire i candidati più probabili.</li>
+              <li><span class="ico">✦</span> <strong>Filtri Specialistici:</strong> Categorie Gardiner (A–Z), Unilitteri (alfabeto), Bilitteri, Trilitteri, Logogrammi e Determinativi muti.</li>
+              <li><span class="ico">✦</span> <strong>Ricerca Multimodale:</strong> Ricerca istantanea per codice (es. <code>A1</code>, <code>G43</code>, <code>S34</code>), traslitterazione (<code>ankh</code>, <code>htp</code>, <code>nfr</code>) o descrizione italiana/inglese.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup 3 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>PANNELLO 3: CATALOGO GARDINER</span>
+              <span style="color:var(--teal);">1074 GLIFI</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>3. Riconosci / Sostituisci Glifo</span>
+                  <span style="color:var(--teal); font-size:0.7rem;">508 Curati</span>
+                </div>
+                <div style="display:flex; gap:6px; margin-bottom:8px;">
+                  <input type="text" class="real-select" style="margin-bottom:0;" value="S34 / ankh" readonly />
+                  <button class="real-tool-btn active" style="white-space:nowrap;">🤖 Per Forma</button>
+                </div>
+
+                <div class="real-diag-box" style="margin-bottom:8px; border-color:var(--teal);">
+                  🎯 <strong>Candidato Primario:</strong> S34 (ˁnḫ) — Confidenza 98.6%
+                </div>
+
+                <div class="real-gardiner-grid">
+                  <div class="real-gardiner-item selected">
+                    <div class="real-gardiner-char">𓋹</div>
+                    <div class="real-gardiner-id">S34 (ˁnḫ)</div>
+                  </div>
+                  <div class="real-gardiner-item">
+                    <div class="real-gardiner-char">𓍑</div>
+                    <div class="real-gardiner-id">U28 (ḏꜣ)</div>
+                  </div>
+                  <div class="real-gardiner-item">
+                    <div class="real-gardiner-char">𓋴</div>
+                    <div class="real-gardiner-id">S29 (s)</div>
+                  </div>
+                  <div class="real-gardiner-item">
+                    <div class="real-gardiner-char">𓊹</div>
+                    <div class="real-gardiner-id">R8 (nṯr)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE EPIGRAFICA 4 -->
+        <div class="phase-card alt-dir">
+          <div class="phase-info">
+            <span class="phase-pill pill-mauve">Fase Epigrafica 4</span>
+            <h3 class="phase-heading">Parole Raggruppate, Cadrat &amp; Word Segmentation</h3>
+            <p class="phase-text">
+              Assemblaggio dei singoli glifi isolati in unità morfologiche (parole e lessemi), organizzati secondo la quadratura geroglifica (cadrat) e l'ordine epigrafico originale.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Ordinamento Interattivo con Click:</strong> Imposta la corretta sequenza di lettura numerando i glifi direttamente sulla stele (#1, #2, #3...).</li>
+              <li><span class="ico">✦</span> <strong>Raggruppamento Parola:</strong> Unisci glifi selezionati con un clic per formare lemmi con trascrizione Manuel de Codage (MdC) combinata.</li>
+              <li><span class="ico">✦</span> <strong>Direzione del Testo:</strong> Gestione orientamento geroglifico da destra a sinistra (standard) o sinistra a destra, in righe orizzontali o colonne verticali.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup 4 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>PANNELLO 4: SEGMENTAZIONE PAROLE</span>
+              <span style="color:var(--mauve);">ORDINE DI LETTURA</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>4. Parole Raggruppate (Word Segmentation)</span>
+                  <span style="font-size:0.68rem; color:var(--mauve);">2 Unità Create</span>
+                </div>
+
+                <div class="real-word-row">
+                  <div class="real-word-left">
+                    <span style="color:var(--teal); font-weight:bold; font-family:monospace;">#1</span>
+                    <span class="real-word-hieros">𓋹𓍑𓋴</span>
+                    <span style="font-size:0.75rem; color:#fff;">ˁnḫ-wḏꜣ-snb</span>
+                  </div>
+                  <span class="real-word-badge pill-green">Formula Reale</span>
+                </div>
+
+                <div class="real-word-row">
+                  <div class="real-word-left">
+                    <span style="color:var(--teal); font-weight:bold; font-family:monospace;">#2</span>
+                    <span class="real-word-hieros">𓇓𓏏𓊵𓏙</span>
+                    <span style="font-size:0.75rem; color:#fff;">ḥtp-dỉ-nsw</span>
+                  </div>
+                  <span class="real-word-badge pill-gold">Offerta Funeraria</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE EPIGRAFICA 5 -->
+        <div class="phase-card">
+          <div class="phase-info">
+            <span class="phase-pill pill-blue">Fase Epigrafica 5</span>
+            <h3 class="phase-heading">Analisi di Primo Livello &amp; Progetti .hiero.json</h3>
+            <p class="phase-text">
+              Riepilogo analitico dettagliato di ogni segno (valore fonetico, classe Gardiner, Unicode esadecimale) e salvataggio dell'intera sessione di lavoro con coordinate e foto incorporate.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Scheda Epigrafica Istantanea:</strong> Visualizzazione coordinata di traslitterazione, traduzione lessicale provvisoria e geometria del reperto.</li>
+              <li><span class="ico">✦</span> <strong>Formato Aperto .hiero.json:</strong> Salva il progetto completo con immagini compresse, nodi poligonali, gruppi e cronologia Undo/Redo.</li>
+              <li><span class="ico">✦</span> <strong>Transizione Istantanea:</strong> Passaggio diretto con un clic (<kbd class="kbd-tag">Alt + G</kbd>) al modulo filologico e grammaticale.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup 5 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>PANNELLO 5: ANALISI &amp; FORMATO .HIERO.JSON</span>
+              <span style="color:var(--blue);">SALVATAGGIO RAPIDO</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>5. Analisi Epigrafica &amp; Medio Egizio</span>
+                  <span style="color:var(--blue); font-size:0.7rem;">JSON Compatibile</span>
+                </div>
+                <div class="real-diag-box" style="margin-bottom:8px;">
+                  <strong>Trascrizione MdC:</strong> S34*U28:S29 (ˁnḫ-wḏꜣ-snb)<br />
+                  <strong>Codice Unicode:</strong> U+132F9 (𓋹) • U+13351 (𓍑) • U+132F4 (𓋴)<br />
+                  <strong>Stato Salvataggio:</strong> stele_reperto_04.hiero.json (Pronto)
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.72rem; color:var(--text-muted);">
+                  <span>Salvataggio Locale: <strong>Ctrl + S</strong></span>
+                  <span style="color:var(--gold); font-weight:bold;">Pronto per Laboratorio Alt+G ➔</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SEZIONE 2: LE 5 FASI DELLA PARTE TRASLITTERAZIONE & GRAMMATICA
+         ========================================================================= -->
+    <section id="fasi-grammatica" class="macro-section" style="background: var(--bg-alt);">
+      <div class="container">
+        <div class="section-header-macro">
+          <div class="macro-badge grammar">📜 Modulo Filologico</div>
+          <h2 class="macro-title">Le 5 Fasi di Traslitterazione &amp; Grammatica (Medio Egizio)</h2>
+          <p class="macro-desc">
+            L'ambiente dedicato alla filologia del Medio Egizio: correzione fine delle traslitterazioni, assorbimento complementi fonetici, marcatura di tempi verbali e linter sintattico.
+          </p>
+        </div>
+
+        <!-- FASE GRAMMATICA 1 -->
+        <div class="phase-card">
+          <div class="phase-info">
+            <span class="phase-pill pill-teal">Fase Grammaticale 1</span>
+            <h3 class="phase-heading">Sequenza Parole, Flusso di Lettura &amp; Traduzione Continua</h3>
+            <p class="phase-text">
+              Visualizzazione ordinata dell'intero testo segmentato con conteggio lemmi, riordinamento interattivo della proposizione e generazione della traduzione continua.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Gestore Sequenza Proposizione:</strong> Sposta l'ordine delle parole con i pulsanti ▲ / ▼ per riflettere la reale struttura sintattica del testo egizio.</li>
+              <li><span class="ico">✦</span> <strong>Traduzione Continua in Tempo Reale:</strong> Box dinamico di traduzione contestuale che si aggiorna man mano che vengono definiti i valori lessicali.</li>
+              <li><span class="ico">✦</span> <strong>Batch Processing:</strong> Pulsante <em>🪄 Auto-Analizza Tutte le Parole</em> per l'elaborazione istantanea dell'intera iscrizione.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup G1 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>MODALITÀ GRAMMATICALE — COLONNA 1</span>
+              <span style="color:var(--teal);">2 PAROLE ATTIVE</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>1. Sequenza Parole &amp; Lettura</span>
+                  <span style="color:var(--teal); font-size:0.7rem;">2 parole</span>
+                </div>
+                <div class="real-word-row" style="background:#181825;">
+                  <div class="real-word-left">
+                    <span style="color:var(--teal); font-weight:bold;">1.</span>
+                    <span class="real-word-hieros">𓇓𓏏𓊵𓏙</span>
+                    <span style="font-size:0.78rem;">ḥtp-dỉ-nsw</span>
+                  </div>
+                  <span style="font-size:0.7rem; color:var(--gold);">[Offerta Funeraria]</span>
+                </div>
+
+                <div class="real-card-title" style="margin-top:10px;">
+                  <span>🏛️ Traduzione Continua &amp; Sintassi</span>
+                </div>
+                <div class="real-diag-box" style="background:#11111b; border-color:#313244; color:#a6e3a1; font-style:italic;">
+                  "Un'offerta che il re dona (a Osiride Signore di Abido), affinché egli possa dare vita, prosperità e salute..."
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE GRAMMATICA 2 -->
+        <div class="phase-card alt-dir">
+          <div class="phase-info">
+            <span class="phase-pill pill-gold">Fase Grammaticale 2</span>
+            <h3 class="phase-heading">Correzione Traslitterazione &amp; Complementi Fonetici</h3>
+            <p class="phase-text">
+              Editor filologico fine per correggere la traslitterazione scientifica standard, assorbire i complementi fonetici ridondanti e gestire le peculiarità grafiche del Medio Egizio.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Normalizzazione Automatica:</strong> Assorbe i complementi fonetici che confermano bilitteri/trilitteri (es. <code>nfr + f + r ➔ nfr</code>) e imposta i determinativi muti su <code>∅</code>.</li>
+              <li><span class="ico">✦</span> <strong>Anteposizione Onorifica:</strong> Pulsante 👑 dedicato per invertire grafie come <em>ḥtp-dỉ-nsw</em>, <em>ḥm-nṯr</em> o <em>sꜣ-nsw</em> (in cui il segno regale/divino è scritto per primo per rispetto, ma letto dopo).</li>
+              <li><span class="ico">✦</span> <strong>Caratteri Egittologici:</strong> Supporto pieno per i simboli di traslitterazione accademica (<code>ꜣ, ỉ, ˁ, ḥ, ḫ, ẖ, š, q, ṯ, ḏ</code>).</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup G2 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>MODALITÀ GRAMMATICALE — TRASLITTERAZIONE</span>
+              <span style="color:var(--gold);">FILOLOGIA ACCADEMICA</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>2. Correzione Traslitterazione &amp; Complementi</span>
+                  <div style="display:flex; gap:4px;">
+                    <span class="real-tool-btn" style="color:#cba6f7; border-color:#cba6f7;">👑 Onorifico</span>
+                    <span class="real-tool-btn active">🔊 Normalizza</span>
+                  </div>
+                </div>
+
+                <table class="real-grammar-table">
+                  <thead>
+                    <tr><th>Glifo</th><th>Gardiner</th><th>Valore Base</th><th>Ruolo Fonetico</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td style="font-size:1.2rem; color:var(--gold);">𓄤</td><td>F35</td><td>nfr</td><td><span class="pill-green" style="padding:1px 4px;">Trilittero</span></td></tr>
+                    <tr><td style="font-size:1.2rem; color:var(--gold);">𓆑</td><td>I9</td><td>f</td><td><span style="color:var(--text-dim);">Complemento Fon. (∅)</span></td></tr>
+                    <tr><td style="font-size:1.2rem; color:var(--gold);">𓂋</td><td>D21</td><td>r</td><td><span style="color:var(--text-dim);">Complemento Fon. (∅)</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE GRAMMATICA 3 -->
+        <div class="phase-card">
+          <div class="phase-info">
+            <span class="phase-pill pill-green">Fase Grammaticale 3</span>
+            <h3 class="phase-heading">Analisi Morfologica: Tempi Verbali, Generi, Numeri &amp; Sintassi</h3>
+            <p class="phase-text">
+              Ispettore morfosintattico contestuale per l'assegnazione accurata delle parti del discorso e la flessione nominale e verbale del Medio Egizio.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Coniugazione Verbale:</strong> Forme sanzionate da Gardiner e Allen: <em>sḏm.f</em> (Perfettivo/Imperfettivo), <em>sḏm.n.f</em> (Passato narrativo), Stativo / Pseudoparticipio, Forme Relative e Participi.</li>
+              <li><span class="ico">✦</span> <strong>Flessione Nominale &amp; Aggettivale:</strong> Riconoscimento del genere (Maschile, Femminile con desinenza <code>-t</code>), numero (Singolare, Duale <code>-wy/-ty</code>, Plurale <code>-w/-wt</code>) e aggettivi di relazione Nisba.</li>
+              <li><span class="ico">✦</span> <strong>Suffissi Pronominali:</strong> Scomposizione di pronomi suffissi (<code>.j, .k, .t, .f, .s, .n, .tn, .sn</code>) attaccati al tema nominale o verbale.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup G3 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>ISPETTORE MORFOSINTATTICO</span>
+              <span style="color:var(--green);">PAROLA SELEZIONATA</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>3. Analisi Morfologica &amp; Sintassi</span>
+                  <span style="color:var(--green); font-size:0.7rem;">sḏm.n.f Rilevato</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+                  <div style="background:#11111b; padding:6px 8px; border-radius:5px;">
+                    <div style="font-size:0.65rem; color:var(--text-dim);">CATEGORIA</div>
+                    <div style="font-weight:bold; color:var(--teal);">Verbo (3-lit.)</div>
+                  </div>
+                  <div style="background:#11111b; padding:6px 8px; border-radius:5px;">
+                    <div style="font-size:0.65rem; color:var(--text-dim);">FORMA TEMPORALE</div>
+                    <div style="font-weight:bold; color:var(--gold);">sḏm.n.f (Passato)</div>
+                  </div>
+                  <div style="background:#11111b; padding:6px 8px; border-radius:5px;">
+                    <div style="font-size:0.65rem; color:var(--text-dim);">SOGGETTO / SUFFISSO</div>
+                    <div style="font-weight:bold; color:var(--blue);">.f (3ª pers. sing. m.)</div>
+                  </div>
+                  <div style="background:#11111b; padding:6px 8px; border-radius:5px;">
+                    <div style="font-size:0.65rem; color:var(--text-dim);">RUOLO SINTATTICO</div>
+                    <div style="font-weight:bold; color:var(--mauve);">Predicato Principale</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE GRAMMATICA 4 -->
+        <div class="phase-card alt-dir">
+          <div class="phase-info">
+            <span class="phase-pill pill-mauve">Fase Grammaticale 4</span>
+            <h3 class="phase-heading">Verifica Regole &amp; Concordanza (Linter Sintattico)</h3>
+            <p class="phase-text">
+              Motore diagnostico che analizza in tempo reale la coerenza grammaticale dell'intera iscrizione, segnalando anomalie o confermando la correttezza del testo.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Concordanza Genere &amp; Numero:</strong> Verifica che aggettivi attributivi e dimostrativi concordino in genere e numero col sostantivo reggente.</li>
+              <li><span class="ico">✦</span> <strong>Reggenza Preposizionale:</strong> Controllo automatico dell'uso corretto di preposizioni composte e reggenze verbali (es. <em>r</em> di moto, <em>m</em> di stato in luogo/predicativo).</li>
+              <li><span class="ico">✦</span> <strong>Controllo Determinativi:</strong> Segnalazione di determinativi incongruenti con la semantica della parola selezionata.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup G4 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>DIAGNOSTICA GRAMMATICALE &amp; REGOLE</span>
+              <span style="color:var(--green);">0 ERRORI</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>4. Verifica Regole &amp; Concordanza</span>
+                  <span class="pill-green" style="font-size:0.65rem;">Coerenza Verificata</span>
+                </div>
+
+                <div class="real-rule-alert">
+                  <strong>✓ Concordanza Soggetto-Verbo:</strong> Il suffisso <em>.f</em> (maschile) concorda correttamente con il referente regale precedente.
+                </div>
+
+                <div class="real-rule-alert">
+                  <strong>✓ Anteposizione Onorifica:</strong> <em>nsw</em> risulta correttamente anticipato per deferenza regale.
+                </div>
+
+                <div class="real-rule-warn">
+                  <strong>ℹ Nota Stilistica:</strong> Presenza di complemento fonetico parziale compatibile con l'epoca del Medio Regno.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE GRAMMATICA 5 -->
+        <div class="phase-card">
+          <div class="phase-info">
+            <span class="phase-pill pill-blue">Fase Grammaticale 5</span>
+            <h3 class="phase-heading">Prontuario Regole Medio Egizio &amp; Scheda Interlineare</h3>
+            <p class="phase-text">
+              Compendio grammaticale interattivo sempre accessibile basato sui testi accademici di riferimento (Gardiner, Allen, Grandet-Mathieu) con esportazione interlineare.
+            </p>
+            <ul class="phase-features">
+              <li><span class="ico">✦</span> <strong>Schede di Consultazione Rapida:</strong> Sezioni consultabili su <em>Tempi Verbali</em>, <em>Generi &amp; Numeri</em>, <em>Pronomi Suffissi/Dipendenti/Indipendenti</em> e <em>Formule Funerarie</em>.</li>
+              <li><span class="ico">✦</span> <strong>Applicazione con 1 Clic:</strong> Clicca su qualsiasi regola nel prontuario per applicarne automaticamente la glossa alla parola in analisi.</li>
+              <li><span class="ico">✦</span> <strong>Copia Scheda Interlineare:</strong> Esporta istantaneamente negli appunti la trascrizione su 4 livelli: Geroglifici Unicode, Codici Gardiner, Traslitterazione scientifica, Glossa grammaticale e Traduzione italiana.</li>
+            </ul>
+          </div>
+
+          <!-- Realistic Screen Mockup G5 -->
+          <div class="phase-screen-wrapper">
+            <div class="screen-header-bar">
+              <div class="screen-window-dots">
+                <div class="screen-dot dot-r"></div>
+                <div class="screen-dot dot-y"></div>
+                <div class="screen-dot dot-g"></div>
+              </div>
+              <span>PRONTUARIO EGITTOLOGICO INTERATTIVO</span>
+              <span style="color:var(--blue);">SCHEDA INTERLINEARE</span>
+            </div>
+            <div class="screen-content-body">
+              <div class="real-card">
+                <div class="real-card-title">
+                  <span>5. Prontuario Regole Medio Egizio</span>
+                  <div style="display:flex; gap:3px;">
+                    <span class="real-tool-btn active" style="font-size:0.65rem;">Verbi</span>
+                    <span class="real-tool-btn" style="font-size:0.65rem;">Pronomi</span>
+                    <span class="real-tool-btn" style="font-size:0.65rem;">Formule</span>
+                  </div>
+                </div>
+
+                <div class="real-diag-box" style="margin-bottom:8px; font-family:'Fira Code', monospace; font-size:0.7rem; background:#11111b;">
+                  [1] 𓇓𓏏𓊵𓏙  (M23-X1-R4-X8)<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;ḥtp-dỉ-nsw<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;[N.M.Sing + V.Perf + N.M.Sing]<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;"Offerta che il re dona"
+                </div>
+
+                <div style="text-align:right;">
+                  <button class="real-tool-btn active" style="display:inline-flex;">📋 Copia Scheda Interlineare</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Keyboard Shortcuts -->
+    <section id="scorciatoie" class="shortcuts-section">
+      <div class="container">
+        <div class="section-header-macro" style="margin-bottom:35px;">
+          <div class="macro-badge epigraphy">⌨️ Comandi Rapidi</div>
+          <h2 class="macro-title" style="font-size:1.9rem;">Scorciatoie da Tastiera</h2>
+          <p class="macro-desc">Progettato per massimizzare la produttività durante la trascrizione epigrafica di grandi steli e papiri.</p>
+        </div>
+
+        <div class="shortcuts-grid">
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Rettangolo Snap</span>
+            <kbd class="kbd-tag">R</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Pennello Area Glifo</span>
+            <kbd class="kbd-tag">B</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Lazo a Mano Libera</span>
+            <kbd class="kbd-tag">L</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Bacchetta Magica</span>
+            <kbd class="kbd-tag">W</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Modifica / Vertici</span>
+            <kbd class="kbd-tag">V</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Modalità Mano / Pan</span>
+            <kbd class="kbd-tag">H</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Laboratorio Grammaticale</span>
+            <kbd class="kbd-tag">Alt + G</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Salva Progetto</span>
+            <kbd class="kbd-tag">Ctrl + S</kbd>
+          </div>
+          <div class="shortcut-card">
+            <span style="font-size:0.9rem;">Annulla Azione</span>
+            <kbd class="kbd-tag">Ctrl + Z</kbd>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <div class="container">
+      <div class="cta-banner">
+        <h2>Pronto a decifrare iscrizioni geroglifiche?</h2>
+        <p>
+          Apri subito l'applicazione completa nel tuo browser. Nessuna installazione richiesta, funzionamento offline e totale rispetto della privacy dei tuoi dati archeologici.
+        </p>
+        <a href="hieroglyph_studio.html" class="btn btn-gold btn-lg" id="btnBottomLaunch">
+          <span>🚀 Apri Hieroglyph Studio Ora</span>
+          <span style="font-size: 1.2rem;">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-flex">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="color:var(--gold); font-weight:bold; font-size:1.05rem;">𓋹 Hieroglyph Studio</span>
+        <span>— Epigrafia Computazionale &amp; Medio Egizio</span>
+      </div>
+
+      <div style="display:flex; gap:18px;">
+        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Avvia Piattaforma</a>
+        <a href="#fasi-epigrafia" style="color:var(--text-muted); text-decoration:none;">Epigrafia (5 Fasi)</a>
+        <a href="#fasi-grammatica" style="color:var(--text-muted); text-decoration:none;">Grammatica (5 Fasi)</a>
+      </div>
+
+      <div style="color:var(--text-dim); font-size:0.8rem;">
+        Piattaforma HTML5 / WebGL / Canvas Statica per GitHub Pages
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
