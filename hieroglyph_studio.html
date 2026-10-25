@@ -1756,6 +1756,305 @@
         grid-template-columns: 240px 1fr 310px;
       }
     }
+
+    /* =========================================================================
+       OTTIMIZZAZIONE RESPONSIVE PER SMARTPHONE & TABLET (<= 900px e <= 600px)
+       ========================================================================= */
+    .mobile-sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 440;
+      background: rgba(10, 10, 18, 0.58);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    @media (max-width: 900px) {
+      body {
+        height: 100vh;
+        height: 100dvh;
+      }
+
+      header {
+        padding: 5px 8px;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .header-brand {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      header h1 {
+        font-size: 0.96rem;
+      }
+
+      /* Barra strumenti scorrevole orizzontalmente al tocco invece di occupare metà schermo */
+      .toolbar {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        padding-bottom: 3px;
+        gap: 5px;
+      }
+
+      .toolbar > * {
+        flex-shrink: 0;
+      }
+
+      button,
+      .file-btn {
+        min-height: 32px;
+        touch-action: manipulation;
+      }
+
+      button.icon-only-btn,
+      .file-btn.icon-only-btn {
+        min-width: 34px;
+        height: 32px;
+        padding: 4px 8px;
+        font-size: 0.98rem;
+      }
+
+      /* Nasconde i tooltip testuali lunghi su touch per non coprire la vista */
+      .toolbar [data-tip]::after {
+        display: none !important;
+      }
+
+      /* Il layout centrale usa il 100% dello schermo per la foto; le 2 barre laterali diventano cassetti (drawer) */
+      main,
+      main.left-collapsed,
+      main.right-collapsed,
+      main.left-collapsed.right-collapsed {
+        grid-template-columns: 1fr !important;
+        position: relative;
+      }
+
+      .sidebar,
+      .sidebar-right {
+        position: fixed;
+        top: 76px;
+        bottom: 0;
+        z-index: 500;
+        width: min(88vw, 370px) !important;
+        max-width: 92vw;
+        background: rgba(24, 24, 37, 0.98);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
+        transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s ease;
+        padding: 10px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        pointer-events: auto !important;
+        opacity: 1 !important;
+      }
+
+      .sidebar {
+        left: 0;
+        border-right: 1.5px solid var(--gold) !important;
+        transform: translateX(0);
+      }
+
+      .sidebar-right {
+        right: 0;
+        border-left: 1.5px solid var(--gold) !important;
+        transform: translateX(0);
+      }
+
+      main.left-collapsed .sidebar {
+        transform: translateX(-105%);
+        pointer-events: none !important;
+        opacity: 0 !important;
+      }
+
+      main.right-collapsed .sidebar-right {
+        transform: translateX(105%);
+        pointer-events: none !important;
+        opacity: 0 !important;
+      }
+
+      /* Mostra lo sfondo oscurato quando almeno uno dei cassetti laterali è aperto su mobile */
+      main:not(.left-collapsed) .mobile-sidebar-backdrop,
+      main:not(.right-collapsed) .mobile-sidebar-backdrop {
+        display: block;
+      }
+
+      /* Linguette laterali ben visibili e facili da toccare sui bordi dello schermo */
+      .sidebar-edge-tab {
+        z-index: 520;
+        width: 24px;
+        height: 58px;
+        font-size: 0.82rem;
+        background: rgba(30, 30, 46, 0.95);
+      }
+
+      .sidebar-edge-tab.edge-left {
+        left: min(88vw, 370px);
+      }
+      main.left-collapsed .sidebar-edge-tab.edge-left {
+        left: 0;
+      }
+
+      .sidebar-edge-tab.edge-right {
+        right: min(88vw, 370px);
+      }
+      main.right-collapsed .sidebar-edge-tab.edge-right {
+        right: 0;
+      }
+
+      /* Canvas touch: disabilita lo scroll pagina accidentale mentre si disegna o si fa pinch-zoom */
+      .canvas-wrap {
+        padding: 4px;
+        touch-action: none;
+      }
+
+      canvas {
+        touch-action: none;
+      }
+
+      /* Scheda dettagli glifo e anteprima centrati per entrare sempre nello schermo dello smartphone */
+      .glyph-pinned-panel {
+        top: auto !important;
+        bottom: 64px !important;
+        left: 8px !important;
+        right: 8px !important;
+        width: calc(100vw - 16px) !important;
+        max-height: 68dvh !important;
+      }
+
+      .glyph-hover-card {
+        left: 8px !important;
+        right: 8px !important;
+        width: calc(100vw - 16px) !important;
+        max-width: calc(100vw - 16px) !important;
+      }
+
+      /* Pulsante flottante Modalità Grammatica più compatto su mobile */
+      .mode-switch-fab {
+        bottom: 10px;
+        right: 10px;
+        padding: 7px 12px;
+        gap: 7px;
+        font-size: 0.76rem;
+        max-width: calc(100vw - 20px);
+      }
+
+      .mode-switch-fab .fab-sub {
+        display: none;
+      }
+
+      .mode-switch-fab .fab-arrow {
+        width: 22px;
+        height: 22px;
+        font-size: 0.88rem;
+      }
+
+      /* Modalità Filologica / Grammatica impilata verticalmente e scorrevole su mobile */
+      #grammarModeScreen {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .gm-top-ribbon {
+        padding: 8px 10px;
+      }
+
+      .gm-title-block {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .gm-actions-bar {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 2px;
+      }
+
+      .gm-actions-bar button {
+        flex-shrink: 0;
+      }
+
+      .gm-vk-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 5px 6px;
+      }
+
+      .gm-vk-bar > * {
+        flex-shrink: 0;
+      }
+
+      .gm-workspace-grid {
+        grid-template-columns: 1fr !important;
+        overflow: visible;
+        height: auto;
+        padding: 8px 8px 70px 8px;
+        gap: 10px;
+      }
+
+      .gm-col {
+        overflow: visible;
+        padding-right: 0;
+      }
+
+      .gm-glyph-row {
+        grid-template-columns: 30px 38px 60px 1fr;
+        gap: 5px;
+      }
+
+      .gm-glyph-row select {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+
+      .gm-form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gm-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .glyph-grid {
+        grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+      }
+
+      .glyph-detail-bigchar,
+      .glyph-pinned-panel .glyph-detail-bigchar {
+        width: 68px;
+        height: 68px;
+        font-size: 3.1rem;
+      }
+
+      .camera-modal {
+        width: 98vw;
+        max-height: 95dvh;
+      }
+
+      .camera-controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .app-info-row {
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .app-info-val {
+        text-align: left;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1810,6 +2109,9 @@
   </header>
 
   <main id="mainLayout">
+    <!-- SFONDO OSCURATO SU SMARTPHONE QUANDO UN CASSETTO LATERALE È APERTO -->
+    <div id="mobileSidebarBackdrop" class="mobile-sidebar-backdrop" title="Tocca per chiudere il pannello laterale"></div>
+
     <!-- LINGUETTE LATERALI SEMPRE VISIBILI PER COMPRIMERE/ESPANDERE I PANNELLI -->
     <button id="edgeToggleLeft" class="sidebar-edge-tab edge-left" title="Comprimi barra laterale sinistra">◀</button>
     <button id="edgeToggleRight" class="sidebar-edge-tab edge-right" title="Comprimi barra laterale destra">▶</button>
@@ -9288,6 +9590,127 @@
     });
 
     // =========================================================================
+    // SUPPORTO TOUCH PER SMARTPHONE & TABLET (1 DITO = STRUMENTO, 2 DITA = PINCH-ZOOM & PAN)
+    // =========================================================================
+    (function initCanvasTouchSupport() {
+      let activeTouchMode = null; // 'single' | 'pinch'
+      let pinchStartDist = 0;
+      let pinchStartZoom = 1;
+      let pinchStartMid = { x: 0, y: 0 };
+      let pinchStartPan = { x: 0, y: 0 };
+      let lastTapTime = 0;
+      let lastTapPos = { x: 0, y: 0 };
+
+      function getTouchDistance(t1, t2) {
+        return Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+      }
+
+      function getTouchMidpoint(t1, t2) {
+        return {
+          x: (t1.clientX + t2.clientX) * 0.5,
+          y: (t1.clientY + t2.clientY) * 0.5
+        };
+      }
+
+      function dispatchSyntheticMouse(type, touch, extra = {}) {
+        const evt = new MouseEvent(type, {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: touch.clientX,
+          clientY: touch.clientY,
+          screenX: touch.screenX,
+          screenY: touch.screenY,
+          button: 0,
+          buttons: type === "mouseup" ? 0 : 1,
+          ...extra
+        });
+        canvas.dispatchEvent(evt);
+      }
+
+      canvas.addEventListener("touchstart", e => {
+        if (e.touches.length === 2) {
+          e.preventDefault();
+          // Se era attivo un disegno a 1 dito, annullalo per passare al pinch-zoom a 2 dita
+          if (activeTouchMode === "single" && interaction) {
+            interaction = null;
+            pendingBeforeState = null;
+            renderOverlay();
+          }
+          activeTouchMode = "pinch";
+          const t1 = e.touches[0];
+          const t2 = e.touches[1];
+          pinchStartDist = Math.max(10, getTouchDistance(t1, t2));
+          const wrap = document.getElementById("canvasWrap");
+          pinchStartZoom = zoomFactor || Math.min((wrap.clientWidth - 28) / canvas.width, (wrap.clientHeight - 28) / canvas.height, 1.0);
+          pinchStartMid = getTouchMidpoint(t1, t2);
+          pinchStartPan = { x: panOffset.x, y: panOffset.y };
+          return;
+        }
+
+        if (e.touches.length === 1) {
+          e.preventDefault();
+          const t = e.touches[0];
+          const now = Date.now();
+          const tapDist = Math.hypot(t.clientX - lastTapPos.x, t.clientY - lastTapPos.y);
+          if (now - lastTapTime < 320 && tapDist < 24) {
+            dispatchSyntheticMouse("dblclick", t);
+            lastTapTime = 0;
+            return;
+          }
+          lastTapTime = now;
+          lastTapPos = { x: t.clientX, y: t.clientY };
+          activeTouchMode = "single";
+          dispatchSyntheticMouse("mousedown", t);
+        }
+      }, { passive: false });
+
+      canvas.addEventListener("touchmove", e => {
+        if (activeTouchMode === "pinch" && e.touches.length >= 2) {
+          e.preventDefault();
+          const t1 = e.touches[0];
+          const t2 = e.touches[1];
+          const dist = Math.max(10, getTouchDistance(t1, t2));
+          const mid = getTouchMidpoint(t1, t2);
+          const scaleRatio = dist / pinchStartDist;
+          zoomFactor = Math.max(0.2, Math.min(5.0, Math.round(pinchStartZoom * scaleRatio * 1000) / 1000));
+          panOffset.x = Math.round(pinchStartPan.x + (mid.x - pinchStartMid.x));
+          panOffset.y = Math.round(pinchStartPan.y + (mid.y - pinchStartMid.y));
+          updateCanvasZoomStyle();
+          return;
+        }
+
+        if (activeTouchMode === "single" && e.touches.length === 1) {
+          e.preventDefault();
+          dispatchSyntheticMouse("mousemove", e.touches[0]);
+        }
+      }, { passive: false });
+
+      canvas.addEventListener("touchend", e => {
+        if (activeTouchMode === "pinch") {
+          if (e.touches.length === 0) {
+            activeTouchMode = null;
+          }
+          return;
+        }
+        if (activeTouchMode === "single" && e.changedTouches.length > 0) {
+          e.preventDefault();
+          dispatchSyntheticMouse("mouseup", e.changedTouches[0]);
+          if (e.touches.length === 0) {
+            activeTouchMode = null;
+          }
+        }
+      }, { passive: false });
+
+      canvas.addEventListener("touchcancel", () => {
+        activeTouchMode = null;
+        interaction = null;
+        pendingBeforeState = null;
+        renderOverlay();
+      });
+    })();
+
+    // =========================================================================
     // DRAG & DROP GLIFI (CATALOGO, SUGGERITI, SEZ. 4, SCHEDA GLIFO) SULLA FOTO
     // =========================================================================
     const canvasWrapEl = document.getElementById("canvasWrap");
@@ -10794,7 +11217,10 @@
       const btnRight = document.getElementById("btnToggleRightSidebar");
       const edgeLeft = document.getElementById("edgeToggleLeft");
       const edgeRight = document.getElementById("edgeToggleRight");
+      const backdropEl = document.getElementById("mobileSidebarBackdrop");
       if (!mainEl) return;
+
+      const isMobileViewport = () => window.innerWidth <= 900;
 
       function syncSidebarUI() {
         const leftCollapsed = mainEl.classList.contains("left-collapsed");
@@ -10829,31 +11255,50 @@
 
       function toggleSidebar(side) {
         const cls = side === "left" ? "left-collapsed" : "right-collapsed";
+        const otherCls = side === "left" ? "right-collapsed" : "left-collapsed";
+        const willExpand = mainEl.classList.contains(cls);
         mainEl.classList.toggle(cls);
-        try {
-          localStorage.setItem(
-            "hiero_sidebars_collapsed_v1",
-            JSON.stringify({
-              left: mainEl.classList.contains("left-collapsed"),
-              right: mainEl.classList.contains("right-collapsed")
-            })
-          );
-        } catch (_e) {}
+        // Su smartphone/tablet apri un solo cassetto laterale alla volta
+        if (willExpand && isMobileViewport()) {
+          mainEl.classList.add(otherCls);
+        }
+        if (!isMobileViewport()) {
+          try {
+            localStorage.setItem(
+              "hiero_sidebars_collapsed_v1",
+              JSON.stringify({
+                left: mainEl.classList.contains("left-collapsed"),
+                right: mainEl.classList.contains("right-collapsed")
+              })
+            );
+          } catch (_e) {}
+        }
         syncSidebarUI();
       }
 
-      try {
-        const saved = JSON.parse(localStorage.getItem("hiero_sidebars_collapsed_v1") || "null");
-        if (saved && typeof saved === "object") {
-          if (saved.left) mainEl.classList.add("left-collapsed");
-          if (saved.right) mainEl.classList.add("right-collapsed");
-        }
-      } catch (_e) {}
+      if (isMobileViewport()) {
+        // Su smartphone avvia con entrambi i cassetti chiusi per mostrare subito la foto a tutto schermo
+        mainEl.classList.add("left-collapsed", "right-collapsed");
+      } else {
+        try {
+          const saved = JSON.parse(localStorage.getItem("hiero_sidebars_collapsed_v1") || "null");
+          if (saved && typeof saved === "object") {
+            if (saved.left) mainEl.classList.add("left-collapsed");
+            if (saved.right) mainEl.classList.add("right-collapsed");
+          }
+        } catch (_e) {}
+      }
 
       if (btnLeft) btnLeft.addEventListener("click", () => toggleSidebar("left"));
       if (btnRight) btnRight.addEventListener("click", () => toggleSidebar("right"));
       if (edgeLeft) edgeLeft.addEventListener("click", () => toggleSidebar("left"));
       if (edgeRight) edgeRight.addEventListener("click", () => toggleSidebar("right"));
+      if (backdropEl) {
+        backdropEl.addEventListener("click", () => {
+          mainEl.classList.add("left-collapsed", "right-collapsed");
+          syncSidebarUI();
+        });
+      }
       syncSidebarUI();
     }
 
