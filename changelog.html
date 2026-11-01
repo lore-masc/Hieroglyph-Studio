@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>Changelog & Note di Rilascio — Hieroglyph Studio v1.0.1</title>
+  <meta name="description" content="Changelog ufficiale e note di rilascio di Hieroglyph Studio v1.0.1: Nuova Pagina 3 (Sintassi Italiana & Traduzione Definitiva), revisione filologica, scorciatoie di raggruppamento e gestione dizionario." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231e1e2e'/%3E%3Cstop offset='100%25' stop-color='%2311111b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f9e2af'/%3E%3Cstop offset='100%25' stop-color='%23fab387'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23bg)' stroke='%23f9e2af' stroke-width='2.5'/%3E%3Crect x='6' y='6' width='52' height='52' rx='10' fill='none' stroke='%2345475a' stroke-width='1' stroke-dasharray='4 2'/%3E%3Ctext x='32' y='46' font-size='38' text-anchor='middle' fill='url(%23gold)' font-family='Segoe UI Historic, Noto Sans Egyptian Hieroglyphs, serif'%3E%F0%93%8B%B9%3C/text%3E%3C/svg%3E" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0f0f17;
+      --bg-alt: #141420;
+      --panel: #181825;
+      --panel-elevated: #1e1e2e;
+      --surface: #262738;
+      --surface-border: #313244;
+      --border-gold: rgba(249, 226, 175, 0.4);
+      
+      --text: #cdd6f4;
+      --text-muted: #9399b2;
+      --text-dim: #6c7086;
+      
+      --gold: #f9e2af;
+      --gold-dark: #fab387;
+      --gold-glow: rgba(249, 226, 175, 0.2);
+      
+      --teal: #94e2d5;
+      --blue: #89b4fa;
+      --green: #a6e3a1;
+      --mauve: #cba6f7;
+      --red: #f38ba8;
+      --peach: #fab387;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      
+      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 10px 32px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 32px rgba(249, 226, 175, 0.15);
+      
+      --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--surface-border) var(--bg);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      width: 100%;
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(249, 226, 175, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 45%, rgba(148, 226, 213, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(203, 166, 247, 0.03) 0%, transparent 40%);
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(15, 15, 23, 0.92);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 10px 0;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.2px;
+      min-width: 0;
+    }
+
+    .brand-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #1e1e2e, #11111b);
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: var(--gold);
+      box-shadow: 0 0 10px rgba(249, 226, 175, 0.25);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--gold);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      white-space: nowrap;
+      min-height: 40px;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f9e2af 0%, #fab387 100%);
+      color: #11111b;
+      box-shadow: 0 4px 18px rgba(249, 226, 175, 0.3);
+    }
+
+    .btn-gold:hover, .btn-gold:active {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(249, 226, 175, 0.45);
+    }
+
+    .btn-outline {
+      background: rgba(30, 30, 46, 0.65);
+      border-color: var(--surface-border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover, .btn-outline:active {
+      background: var(--surface);
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm-header {
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      border-radius: var(--radius-sm);
+      min-height: 36px;
+    }
+
+    /* Hero / Header Section of Changelog */
+    .changelog-hero {
+      padding: 50px 0 35px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .version-badge-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 999px;
+      background: rgba(249, 226, 175, 0.1);
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-weight: 800;
+      font-family: 'Fira Code', monospace;
+      letter-spacing: 0.5px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .changelog-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .changelog-title span {
+      background: linear-gradient(135deg, #f9e2af 20%, #fab387 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .changelog-subtitle {
+      font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 20px auto;
+    }
+
+    .changelog-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+    }
+
+    /* Changelog Content */
+    .changelog-body {
+      padding: 50px 0 80px 0;
+    }
+
+    /* Release Card */
+    .release-section {
+      background: var(--panel);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .release-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 22px;
+      margin-bottom: 30px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .release-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .release-version-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .release-date {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Section Groups inside Release */
+    .change-group {
+      margin-bottom: 34px;
+    }
+
+    .change-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .change-group-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed rgba(49, 50, 68, 0.8);
+    }
+
+    .group-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .icon-green { background: rgba(166, 227, 161, 0.15); color: var(--green); border: 1px solid rgba(166, 227, 161, 0.3); }
+    .icon-teal { background: rgba(148, 226, 213, 0.15); color: var(--teal); border: 1px solid rgba(148, 226, 213, 0.3); }
+    .icon-gold { background: rgba(249, 226, 175, 0.15); color: var(--gold); border: 1px solid rgba(249, 226, 175, 0.3); }
+    .icon-mauve { background: rgba(203, 166, 247, 0.15); color: var(--mauve); border: 1px solid rgba(203, 166, 247, 0.3); }
+    .icon-blue { background: rgba(137, 180, 250, 0.15); color: var(--blue); border: 1px solid rgba(137, 180, 250, 0.3); }
+    .icon-peach { background: rgba(250, 179, 135, 0.15); color: var(--peach); border: 1px solid rgba(250, 179, 135, 0.3); }
+
+    /* Change Item List */
+    .change-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .change-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.94rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: rgba(30, 30, 46, 0.4);
+      border: 1px solid rgba(49, 50, 68, 0.5);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      transition: var(--transition);
+    }
+
+    .change-item:hover {
+      background: rgba(30, 30, 46, 0.75);
+      border-color: rgba(249, 226, 175, 0.3);
+      transform: translateX(3px);
+    }
+
+    .change-bullet {
+      color: var(--gold);
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .change-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .change-content strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .change-sublist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+      padding-left: 6px;
+      border-left: 2px solid var(--surface-border);
+    }
+
+    .change-sublist li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .change-sublist li .sub-ico {
+      color: var(--teal);
+      flex-shrink: 0;
+      font-size: 0.8rem;
+    }
+
+    .kbd-tag {
+      background: #11111b;
+      border: 1px solid #45475a;
+      color: var(--gold);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.74rem;
+      font-weight: 700;
+      box-shadow: 0 2px 0 #313244;
+      white-space: nowrap;
+    }
+
+    .glyph-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #11111b;
+      border: 1px solid #313244;
+      border-radius: 5px;
+      padding: 2px 7px;
+      color: var(--gold);
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .tag-badge {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .tag-new { background: rgba(166, 227, 161, 0.15); color: var(--green); border: 1px solid rgba(166, 227, 161, 0.35); }
+    .tag-fix { background: rgba(243, 139, 168, 0.15); color: var(--red); border: 1px solid rgba(243, 139, 168, 0.35); }
+    .tag-enh { background: rgba(137, 180, 250, 0.15); color: var(--blue); border: 1px solid rgba(137, 180, 250, 0.35); }
+
+    /* Footer */
+    footer.site-footer {
+      background: #09090f;
+      border-top: 1px solid var(--surface-border);
+      padding: 30px 0 22px 0;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+
+    .footer-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    /* Mobile Quick Navigation Chips */
+    .mobile-nav-chips {
+      display: none;
+      overflow-x: auto;
+      white-space: nowrap;
+      gap: 8px;
+      padding: 8px 16px 10px 16px;
+      background: rgba(20, 20, 32, 0.95);
+      border-bottom: 1px solid var(--surface-border);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .mobile-nav-chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mobile-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      transition: var(--transition);
+    }
+    .mobile-chip:active {
+      background: var(--gold);
+      color: #11111b;
+      border-color: var(--gold);
+    }
+
+    @media (max-width: 768px) {
+      .release-section { padding: 22px 18px; }
+      .change-item { padding: 12px 14px; }
+      .nav-links { display: none; }
+      .mobile-nav-chips { display: flex; }
+      .footer-flex { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon-box">𓋹</div>
+        <span>Hieroglyph Studio</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html#fasi-epigrafia">🏛️ 5 Fasi Epigrafia</a></li>
+        <li><a href="index.html#fasi-grammatica">📜 5 Fasi Grammatica</a></li>
+        <li><a href="changelog.html" class="active">📝 Changelog v1.0.1</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header" title="Avvia la piattaforma interattiva">
+          <span>🚀 Apri Studio</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Quick Jump Bar -->
+  <div class="mobile-nav-chips">
+    <a href="index.html" class="mobile-chip">🏠 Home</a>
+    <a href="#v1-0-1" class="mobile-chip">✨ Versione 1.0.1</a>
+    <a href="#pagina-3" class="mobile-chip">🇮🇹 Pagina 3 (Sintassi IT)</a>
+    <a href="#glifi" class="mobile-chip">𓍋 Nuovi Glifi</a>
+    <a href="#v1-0-0" class="mobile-chip">📜 Versione 1.0.0</a>
+  </div>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="changelog-hero">
+      <div class="container">
+        <div class="version-badge-lg">
+          <span>v1.0.1 — 1 Novembre 2026</span>
+        </div>
+
+        <h1 class="changelog-title">
+          Changelog &amp; <span>Note di Rilascio</span>
+        </h1>
+
+        <p class="changelog-subtitle">
+          Tutte le novità, miglioramenti filologici, revisione dei complementi, gestione dizionario e la nuova Pagina 3 dedicata alla sintassi italiana.
+        </p>
+
+        <div class="changelog-meta-row">
+          <span class="meta-tag">🏛️ Epigrafia Computazionale</span>
+          <span class="meta-tag">📜 Medio Egizio (Egiziano Classico)</span>
+          <span class="meta-tag">⚡ 100% Client-Side &amp; Privacy-First</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Changelog Body -->
+    <div class="container changelog-body">
+
+      <!-- =====================================================================
+           RELEASE 1.0.1 (ATTUALE)
+           ===================================================================== -->
+      <article class="release-section" id="v1-0-1">
+        <div class="release-header">
+          <div class="release-header-left">
+            <h2 class="release-version-title">
+              Hieroglyph Studio v1.0.1
+              <span class="tag-badge tag-new">Versione Attuale</span>
+            </h2>
+            <div class="release-date">
+              📅 1 Novembre 2026 • Aggiornamento Filologico &amp; Sintassi Italiana
+            </div>
+          </div>
+          <div>
+            <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header">
+              <span>🚀 Avvia v1.0.1</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- GRUPPO 1: NUOVA PAGINA 3 - SINTASSI ITALIANA & TRADUZIONE DEFINITIVA -->
+        <div class="change-group" id="pagina-3">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-gold">🇮🇹</div>
+            Nuova Pagina 3: Laboratorio di Traduzione Definitiva &amp; Sintassi Italiana
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Nuova modalità a schermo intero (Pagina 3):</strong> accessibile sia dalla barra superiore del Laboratorio Filologico sia dal pulsante rapido galleggiante in basso a destra (modalità a 3 schermate: Epigrafia ⟷ Grammatica ⟷ Traduzione Definitiva).
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Separazione tra Ordine Epigrafico e Ordine Sintattico Italiano:</strong> le parole geroglifiche mantengono il loro ordine di lettura originale su pietra (<code>#1..#N</code>), mentre le tessere sintattiche italiane (<code>1°..N° in IT</code>) possono essere riordinate liberamente tramite Drag &amp; Drop o pulsanti direzionali <kbd class="kbd-tag">◄</kbd> / <kbd class="kbd-tag">►</kbd>.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Algoritmo di Riordino Sintattico Automatico (VSO ➔ SVO):</strong>
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">✓</span> Risoluzione automatica della formula d'offerta <em>ḥtp-dỉ-nsw</em> («Un'offerta che il Re dà ad Osiride...»).</li>
+                  <li><span class="sub-ico">✓</span> Riconoscimento dello stato costrutto con toponimi e titolature (es. <em>nb Ḏd.w.t</em> ➔ «Signore di Busiri», <em>nb ꜣbdw</em> ➔ «Signore di Abido»).</li>
+                  <li><span class="sub-ico">✓</span> Anticipazione dell'aggettivo/quantificatore posposto <em>nb</em> («ogni cosa buona e pura»).</li>
+                  <li><span class="sub-ico">✓</span> Gestione delle proposizioni ottative/finali <em>dỉ=f prt-ḫrw</em> («affinché egli conceda...»).</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Tessere Sintattiche Interattive &amp; Connettori Rapidi:</strong>
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">✓</span> Campi diretti per inserire preposizioni/articoli (<em>Prep./Art.</em>), traduzione affinata (<em>Traduzione IT</em>) e punteggiatura (<em>Punt.</em>).</li>
+                  <li><span class="sub-ico">✓</span> Barra connettori rapidi per inserire preposizioni italiane con un solo clic.</li>
+                  <li><span class="sub-ico">✓</span> Possibilità di aggiungere parole libere di raccordo (<em>➕ Parola Libera / Connettore</em>) e silenziare singole tessere (👁️/🚫).</li>
+                  <li><span class="sub-ico">✓</span> <strong>Silenziamento automatico dei Determinativi Puri:</strong> i segni isolati usati solo come determinativo (es. <code>#16 Y1 ∅ (det.)</code>) vengono esclusi automaticamente dal testo italiano per evitare descrizioni da dizionario non pertinenti.</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Editor Traduzione Definitiva &amp; Esportazione Dossier:</strong> riquadro sincronizzato in tempo reale, funzione di rifinitura automatica per elisioni e apostrofi italiani, ed esportazione con un clic della Scheda Filologica Completa (Geroglifici + Traslitterazione + Morfologia + Traduzione).
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 2: DIZIONARIO, LACUNE E SCORCIATOIE -->
+        <div class="change-group">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-teal">📖</div>
+            Dizionario Medio Egizio, Lacune &amp; Nuove Scorciatoie
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Scorciatoie raggruppamento (<kbd class="kbd-tag">Ctrl+G</kbd> / <kbd class="kbd-tag">Ctrl+Shift+G</kbd>):</strong> unione e separazione rapida dei glifi in parola mantenendo la posizione originale nell'ordine di lettura.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Drag &amp; Drop parole:</strong> riordino rapido delle parole tramite trascinamento nelle barre e nelle liste di lettura.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Gestore Dizionario Medio Egizio:</strong> interfaccia per aggiungere, modificare ed esportare/importare lemmi e radici personalizzate nel dizionario locale.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Letture combinatorie in lacuna (<code>⸢?⸣</code>):</strong> inclusione automatica delle ipotesi contestuali nei suggerimenti di lettura e segmentazione.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Copia soli geroglifici Unicode:</strong> pulsanti dedicati in tutte le pagine per copiare la sola sequenza di geroglifici (continua, spaziata o della selezione attiva).
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 3: NUOVI GLIFI E REVISIONE FILOLOGICA -->
+        <div class="change-group" id="glifi">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-green">𓊨</div>
+            Nuovi Glifi Curati &amp; Revisione Filologica Segni
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Nuovi glifi aggiunti e curati:</strong>
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">✓</span> <span class="glyph-pill">U21 𓍋</span> <strong>stp</strong> – zappa / scegliere, prescelto (es. <em>stp-n-Rꜥ</em>).</li>
+                  <li><span class="sub-ico">✓</span> <span class="glyph-pill">O3 𓉐</span> <strong>pr-ḥḏ</strong> – santuario / cappella / tesoro.</li>
+                  <li><span class="sub-ico">✓</span> <span class="glyph-pill">S27 𓋳</span> <strong>mnḫ.t</strong> – fascia di lino con frange / abito.</li>
+                  <li><span class="sub-ico">✓</span> <span class="glyph-pill">O29V 𓉻</span> <strong>ꜥꜣ (verticale)</strong> – colonna / pilastro orientato verticalmente o varianti di <em>ꜥꜣ</em>.</li>
+                  <li><span class="sub-ico">✓</span> <span class="glyph-pill">P8H 𓊤</span> <strong>ḫrw (orizzontale)</strong> – remo / timone orizzontale per <em>ḫrw</em> (voce, suono).</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Revisione filologica di Q1 (<span class="glyph-pill">𓊨</span>) e Q2 (<span class="glyph-pill">𓊩</span>):</strong>
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">✓</span> Rettificata la traslitterazione del singolo segno isolato in <em>st / ws</em> per Q1 e <em>ws / wz</em> per Q2 (rimosse le letture indebite di parola intera <em>Wsỉr</em> e <em>Ꜣs.t</em> dal solo glifo).</li>
+                  <li><span class="sub-ico">✓</span> Rimossa l'errata anteposizione onorifica automatica su Q1.</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 4: ANALISI MORFOLOGICA & COMPLEMENTI FONETICI -->
+        <div class="change-group">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-mauve">𓊹</div>
+            Laboratorio Morfologico &amp; Complementi Fonetici
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Raffinamento rilevamento complementi fonetici:</strong>
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">✓</span> <strong>Risolto il falso positivo in Wsỉr (Q1 + D4):</strong> Q1 assume il bilittero <em>ws</em> e D4 <em>ỉr</em> (<em>ws + ỉr</em>), evitando che l'occhio (<em>ỉr</em>) venga falsamente catalogato come complemento fonetico ridondante.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Esclusione automatica doppioni consecutivi:</strong> evita la doppia <em>.t</em> finale e offre l'opzione per ignorare o riattivare manualmente un complemento.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Casi complessi curati:</strong> mantenuto e perfezionato il riconoscimento dei veri complementi in parole come <em>s.t / Ꜣs.t</em> (Q1 st + X1 t), <em>ḥtp</em> (R4 + X1 + Q3), <em>nfr</em> (F35 + I9 + D21) e reduplicazioni (es. <em>ḏd-ḏd</em> in <em>ḏd.w / Ḏd.w.t</em>).</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Arricchimento Dizionario Medio Egizio:</strong> inserite nuove voci e combinazioni ortografiche per <em>Wsỉr</em> (Osiride), <em>Ꜣs.t</em> (Iside), <em>s.t</em> (trono/luogo), <em>mnḫ.t</em> e varianti correlate.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Adattamento contestuale della form Morfologia (Pagina 2):</strong> il blocco <em>Tempi, Modi e Diatesi Verbali</em> (<em>sḏm.f</em>, stativo, participio...) ora si mostra solo se la parola è classificata come Verbo, evitando campi inutili su sostantivi e aggettivi (es. <em>šs</em>).
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 5: STUDIO EPIGRAFICO, UX & ARCHITETTURA -->
+        <div class="change-group">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-blue">🛠️</div>
+            Studio Epigrafico, UX, Persistenza &amp; Retrocompatibilità
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Miglioramenti filtri e contrasto incisioni (Pagina 1):</strong> affinamento dei parametri di contrasto e soglia bordi per isolare solchi corrosi, barre orizzontali e dettagli incisi su pietra calcarea.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Miglioramenti UX:</strong> avvio progetto senza selezioni attive residue, pennello impostato alla larghezza minima di default e fix sui pulsanti delle intestazioni in Pagina 1.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Sanitizzazione automatica (<code>sanitizeBoxChosenTranslit</code>):</strong> migrazione trasparente dei progetti salvati in <code>localStorage</code>: i vecchi valori salvati su Q1/Q2 ("Wsỉr", "Ꜣs.t", "s.t") o codici grezzi non aggiornati vengono normalizzati automaticamente al caricamento senza alterare le annotazioni dell'utente.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Integrazione Completa nello Stato di Progetto:</strong> lo stato della traduzione italiana (<code>italianTranslationState</code>) è integrato nello storico Undo / Redo (<kbd class="kbd-tag">Ctrl+Z</kbd> / <kbd class="kbd-tag">Ctrl+Y</kbd>), nel salvataggio locale automatico e nei file di progetto <code>.json</code>.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- =====================================================================
+           RELEASE 1.0.0 (PRECEDENTE)
+           ===================================================================== -->
+      <article class="release-section" id="v1-0-0" style="opacity: 0.85;">
+        <div class="release-header">
+          <div class="release-header-left">
+            <h2 class="release-version-title">
+              Hieroglyph Studio v1.0.0
+            </h2>
+            <div class="release-date">
+              📅 25 Ottobre 2026 • Prima Release Ufficiale
+            </div>
+          </div>
+        </div>
+
+        <ul class="change-items">
+          <li class="change-item">
+            <span class="change-bullet">✦</span>
+            <div class="change-content">
+              <strong>Rilascio iniziale dello Studio Epigrafico in 5 Fasi:</strong> filtri di contrasto adattivo per rilievi su pietra e papiri, snap poligonali vettoriali, silhouette epigrafica verde e raggruppamento in unità lessicali.
+            </div>
+          </li>
+          <li class="change-item">
+            <span class="change-bullet">✦</span>
+            <div class="change-content">
+              <strong>Catalogo Gardiner Unicode Integrato:</strong> 1074 caratteri Unicode con 508 forme curate, ricerca per codice fonetico e classificazione semantica.
+            </div>
+          </li>
+          <li class="change-item">
+            <span class="change-bullet">✦</span>
+            <div class="change-content">
+              <strong>Laboratorio di Medio Egizio:</strong> analisi morfologica di base, tempi verbali <em>sḏm.f</em> / <em>sḏm.n.f</em>, flessione nominale e prontuario egittologico Gardiner.
+            </div>
+          </li>
+        </ul>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-flex">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="color:var(--gold); font-weight:bold; font-size:1rem;">𓋹 Hieroglyph Studio</span>
+        <span>— Changelog &amp; Note di Rilascio</span>
+      </div>
+
+      <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Apri Piattaforma v1.0.1</a>
+        <a href="index.html" style="color:var(--text-muted); text-decoration:none;">Presentazione Progetto</a>
+      </div>
+
+      <div style="color:var(--text-dim); font-size:0.78rem;">
+        Piattaforma HTML5 / WebGL / Canvas Statica per GitHub Pages
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
