@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-  <title>Changelog & Note di Rilascio — Hieroglyph Studio v1.0.1</title>
-  <meta name="description" content="Changelog ufficiale e note di rilascio di Hieroglyph Studio v1.0.1: Nuova Pagina 3 (Sintassi Italiana & Traduzione Definitiva), revisione filologica, scorciatoie di raggruppamento e gestione dizionario." />
+  <title>Changelog & Note di Rilascio — Hieroglyph Studio v1.0.2</title>
+  <meta name="description" content="Changelog ufficiale e note di rilascio di Hieroglyph Studio v1.0.2: Espansione massiva del dizionario (315 lemmi), riconoscimento morfosintattico da traslitterazione, rilevatore proposizioni, paradigmi verbali e fix salvataggio." />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231e1e2e'/%3E%3Cstop offset='100%25' stop-color='%2311111b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f9e2af'/%3E%3Cstop offset='100%25' stop-color='%23fab387'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23bg)' stroke='%23f9e2af' stroke-width='2.5'/%3E%3Crect x='6' y='6' width='52' height='52' rx='10' fill='none' stroke='%2345475a' stroke-width='1' stroke-dasharray='4 2'/%3E%3Ctext x='32' y='46' font-size='38' text-anchor='middle' fill='url(%23gold)' font-family='Segoe UI Historic, Noto Sans Egyptian Hieroglyphs, serif'%3E%F0%93%8B%B9%3C/text%3E%3C/svg%3E" />
@@ -552,9 +552,8 @@
       <ul class="nav-links">
         <li><a href="index.html#fasi-epigrafia">🏛️ 5 Fasi Epigrafia</a></li>
         <li><a href="index.html#fasi-grammatica">📜 5 Fasi Grammatica</a></li>
-        <li><a href="changelog.html" class="active">📝 Changelog v1.0.1</a></li>
+        <li><a href="changelog.html" class="active">📝 Changelog v1.0.2</a></li>
       </ul>
-
       <div class="nav-actions">
         <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header" title="Avvia la piattaforma interattiva">
           <span>🚀 Apri Studio</span>
@@ -566,10 +565,12 @@
   <!-- Mobile Quick Jump Bar -->
   <div class="mobile-nav-chips">
     <a href="index.html" class="mobile-chip">🏠 Home</a>
-    <a href="#v1-0-1" class="mobile-chip">✨ Versione 1.0.1</a>
-    <a href="#pagina-3" class="mobile-chip">🇮🇹 Pagina 3 (Sintassi IT)</a>
-    <a href="#glifi" class="mobile-chip">𓍋 Nuovi Glifi</a>
-    <a href="#v1-0-0" class="mobile-chip">📜 Versione 1.0.0</a>
+    <a href="#v1-0-2" class="mobile-chip">✨ Versione 1.0.2</a>
+    <a href="#dizionario-315" class="mobile-chip">📚 Dizionario (315 lemmi)</a>
+    <a href="#morfosintassi-auto" class="mobile-chip">🧠 Morfosintassi Auto</a>
+    <a href="#proposizioni-auto" class="mobile-chip">🏛️ Proposizioni</a>
+    <a href="#v1-0-1" class="mobile-chip">📜 Versione 1.0.1</a>
+    <a href="#v1-0-0" class="mobile-chip">📜 v1.0.0</a>
   </div>
 
   <!-- Hero Section -->
@@ -577,7 +578,7 @@
     <section class="changelog-hero">
       <div class="container">
         <div class="version-badge-lg">
-          <span>v1.0.1 — 1 Novembre 2026</span>
+          <span>v1.0.2 — 8 Novembre 2026</span>
         </div>
 
         <h1 class="changelog-title">
@@ -585,7 +586,7 @@
         </h1>
 
         <p class="changelog-subtitle">
-          Tutte le novità, miglioramenti filologici, revisione dei complementi, gestione dizionario e la nuova Pagina 3 dedicata alla sintassi italiana.
+          Espansione massiva del dizionario (315 lemmi), riconoscimento morfosintattico da traslitterazione, rilevatore automatico delle proposizioni, nuovi paradigmi verbali e fix di salvataggio.
         </p>
 
         <div class="changelog-meta-row">
@@ -600,29 +601,271 @@
     <div class="container changelog-body">
 
       <!-- =====================================================================
-           RELEASE 1.0.1 (ATTUALE)
+           RELEASE 1.0.2 (ATTUALE)
            ===================================================================== -->
-      <article class="release-section" id="v1-0-1">
+      <article class="release-section" id="v1-0-2">
         <div class="release-header">
           <div class="release-header-left">
             <h2 class="release-version-title">
-              Hieroglyph Studio v1.0.1
+              Hieroglyph Studio v1.0.2
               <span class="tag-badge tag-new">Versione Attuale</span>
             </h2>
             <div class="release-date">
-              📅 1 Novembre 2026 • Aggiornamento Filologico &amp; Sintassi Italiana
+              📅 8 Novembre 2026 • Espansione Lessicale, Riconoscimento Morfosintattico &amp; Proposizioni
             </div>
           </div>
           <div>
             <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header">
-              <span>🚀 Avvia v1.0.1</span>
+              <span>🚀 Avvia v1.0.2</span>
             </a>
+          </div>
+        </div>
+
+        <!-- GRUPPO 1: ESPANSIONE MASSIVA DEL DIZIONARIO -->
+        <div class="change-group" id="dizionario-315">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-teal">📚</div>
+            1. Espansione Massiva del Dizionario Medio Egizio (da 55 a 315 lemmi, +260 nuove voci)
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Ampliamento del lessico integrato e dei database grammaticali:</strong> il dizionario <code>MIDDLE_EGYPTIAN_DICT</code> e i lessici interni (<code>ME_KNOWN_PREPOSITIONS</code>, <code>ME_KNOWN_PARTICLES</code>, <code>ME_KNOWN_VERBS</code>, <code>ME_KNOWN_ADJ</code>) sono stati ampliati con <strong>260 nuovi lemmi</strong> validati sui codici Gardiner del catalogo interno, corredati di geroglifici Unicode, traslitterazione scientifica, categoria morfologica e traduzione bilingue IT/EN:
+                <ul class="change-sublist">
+                  <li>
+                    <span class="sub-ico">✓</span>
+                    <div>
+                      <strong>Letteratura Classica del Regno Medio (+121 lemmi):</strong>
+                      <ul style="list-style:disc; margin-left:18px; margin-top:4px; font-size:0.86rem; color:var(--text-muted);">
+                        <li><strong>Titoli di corte, amministrazione e ranghi:</strong> <em>šmsw</em> (seguace/scudiero), <em>ḥꜣty-ꜥ</em> (principe locale/sindaco), <em>ỉry-pꜥ.t</em> (principe ereditario), <em>smr-wꜥty</em> (amico unico), <em>ỉmy-r pr</em> (maggiordomo), <em>ḥm-nṯr</em> (profeta/sacerdote), <em>ẖry-ḥb</em> (sacerdote lettore), <em>sš</em> (scriba).</li>
+                        <li><strong>Lessico narrativo e nautico</strong> (<em>Naufrago</em>, <em>Sinuhe</em>, <em>Contadino Eloquente</em>): <em>wꜣḏ-wr</em> (il Grande Verde / mare), <em>ỉw</em> (isola), <em>dp.t</em> (nave), <em>ḏꜥ</em> (tempesta), <em>ḥfꜣw</em> (serpente), <em>ꜥntyw</em> (mirra), <em>ḥqꜣ-ḫꜣs.wt</em> (sovrano dei paesi stranieri), <em>Rṯnw</em> (Retjenu), <em>Bꜣk.t</em> (Egitto), <em>sḫ.ty</em> (abitante della campagna / contadino), <em>šzp.w</em> (luce).</li>
+                        <li><strong>Lessico sapienziale e psicologico</strong> (<em>Ptahhotep</em>, <em>Insegnamento Lealista</em>, <em>Dialogo del Ba</em>, <em>Neferti</em>): <em>mꜣꜥ.t</em> (Maat: verità, giustizia, ordine cosmico), <em>ỉb</em> e <em>ḥꜣ.ty</em> (cuore/mente), <em>bꜣ</em> (anima-Ba), <em>ꜣḫ</em> (spirito trasfigurato), <em>grw</em> (l'uomo silenzioso/autocontrollato), <em>sꜣꜣ</em> (uomo saggio), <em>sbꜣ.yt</em> (insegnamento), <em>mdw-nṯr</em> (parole divine / geroglifici), <em>ỉsf.t</em> (caos/ingiustizia), <em>ḥkꜣ.w</em> (magia), <em>nḥḥ</em> e <em>ḏ.t</em> (eternità ciclica e lineare).</li>
+                        <li><strong>Verbi, particelle e formule scribali:</strong> <em>ḏd.ỉn</em> («allora disse»), <em>ꜥḥꜥ.n</em> («allora si alzò e...»), <em>wn.ỉn</em> («allora fu che...»), <em>gmỉ</em> (trovare), <em>ḫpr</em> (divenire/accadere), <em>pḥ</em> (raggiungere), <em>spr</em> (approdare/supplicare), <em>snḏ</em> (temere), <em>rḫ</em> (conoscere), <em>ḫm</em> (ignorare), <em>wḏꜣ ỉb=k</em> («che il tuo cuore sia prospero!»), <em>ỉw=f pw</em> (colofone «così finisce»).</li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="sub-ico">✓</span>
+                    <div>
+                      <strong>Epigrafia Funeraria, Stele e Papirologia (+139 lemmi):</strong>
+                      <ul style="list-style:disc; margin-left:18px; margin-top:4px; font-size:0.86rem; color:var(--text-muted);">
+                        <li><strong>Epiteti e divinità delle stele di Abido e del British Museum:</strong> <em>Wp-wꜣ.wt</em> (Upuaut), <em>ḫnty-ỉmnty.w</em> (Khentimentiu), <em>Wnn-nfr</em> (Unennefer), epiteti di Anubi <em>tpy-ḏw=f</em>, <em>ỉmy-wt</em>, <em>ḫnty-zḥ-nṯr</em>, i quattro Figli di Horo <em>Ỉms.ty</em>, <em>Ḥpy</em>, <em>Dwꜣ-mwt=f</em>, <em>Qbḥ-sn.w=f</em>, parentele <em>sn</em>, <em>sn.t</em>, <em>ỉt</em>, <em>mw.t</em>, <em>ḥm.t</em>, e titoli amministrativi del Medio Regno.</li>
+                        <li><strong>Letteratura tebana &amp; Stele del Sogno di Thutmosis IV:</strong> <em>Ḥr-m-ꜣḫ.t</em> (Harmachis / Sfinge di Giza), <em>Mn-ḫpr.w-Rꜥ</em> e <em>Ḏḥwty-ms ḫꜥ-ḫꜥ.w</em> (Thutmosis IV), <em>Ỉnb-ḥḏ</em> (Muro Bianco / Menfi), <em>rsw.t</em> (sogno), <em>swtwt</em> (passeggiare), <em>ṯꜣw-n-ꜥnḫ</em> (soffio di vita).</li>
+                        <li><strong>Libro dei Morti e Deir el-Medina:</strong> <em>rꜣ n pr.t m hrw</em> (Formula dell'uscire al giorno), <em>ꜥꜣ n ỉs.t m s.t-Mꜣꜥ.t</em> (Caposquadra nella Sede della Verità), <em>sḏm-ꜥš m s.t-Mꜣꜥ.t</em>, <em>wšbty</em> (ushabti), <em>sḫ.t-ỉꜣrw</em> (Campo dei Giunchi), <em>sḫ.t-ḥtp.w</em> (Campo delle Offerte), <em>smꜣꜥ-ḫrw</em> (giustificare la voce), <em>ỉnḏ-ḥr=k</em> (Salute a te!).</li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 2: RICONOSCIMENTO MORFOSINTATTICO AUTOMATICO -->
+        <div class="change-group" id="morfosintassi-auto">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-mauve">🧠</div>
+            2. Riconoscimento Morfo-Sintattico Automatico da Traslitterazione (Pagina 2)
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Motore <code>recognizeWordAutoCategories</code> integrato:</strong> interfacciato direttamente con <code>parseEgyptianMorphemes</code> e <code>inferWordGrammar</code>, riconosce istantaneamente categoria grammaticale, ruolo sintattico, desinenze e traduzione italiana in base alla traslitterazione scelta dall'utente:
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">📍</span> <strong>Preposizioni (Semplici, Composte e in Stato Pronominale):</strong>
+                    riconoscimento di tutte le preposizioni semplici (<em>m/ỉm, n, r, ḥr, ẖr, ḫr, ḥnꜥ, ḫft, mỉ, tp, ḫnt, ḥꜣ, ỉn</em>) e composte (<em>r-ḏr, m-bꜣḥ, m-ꜥ, m-ḫt, m-sꜣ, m-ẖnw, r-gs, ḥr-tp, tp-ꜥ, n-mrwt, r-ꜥ, m-qꜣb</em>). Riconoscimento automatico delle preposizioni coniugate con pronome suffisso (<em>n=f</em> «a lui / per lui», <em>ḥr=f</em> «su di lui», <em>ḫr=f</em> «presso di lui», <em>ỉm=f</em> «in lui», <em>r-ḏr=f</em> «intero / tutto quanto»), con compilazione automatica di POS = prep, Stato = Pronominale e suffisso.
+                  </li>
+                  <li><span class="sub-ico">🔮</span> <strong>Aggettivi di Relazione — Nisba (<code>ME_KNOWN_NISBA</code>):</strong>
+                    <ul style="list-style:disc; margin-left:18px; margin-top:4px; font-size:0.86rem; color:var(--text-muted);">
+                      <li><strong>Nisba genitivali (genitivo indiretto):</strong> <em>ny</em>, <em>n(y)</em>, <em>nt</em>, <em>n.t</em>, <em>nw</em>, <em>ny.w</em> (oltre a <em>n</em> posizionato tra due sostantivi).</li>
+                      <li><strong>Nisba preposizionali:</strong> <em>ỉmy</em>, <em>ỉm.t</em>, <em>ỉmy.w</em>, <em>ỉmy-r</em> (sovrintendente), <em>ỉmy-wt</em>, <em>ỉry</em>, <em>ḥry</em>, <em>ḥr.t</em>, <em>ḥry-tp</em>, <em>ẖry</em>, <em>ẖry-ḥb</em>, <em>ẖr.t-nṯr</em>, <em>ḫnty</em>, <em>ḫnty-ỉmntyw</em>, <em>tpy</em>, <em>tpy-ꜥ</em>, <em>tpy-ḏw=f</em>.</li>
+                      <li><strong>Nisba nominali e morfologici:</strong> <em>ỉmnty</em>, <em>ỉmnty.w</em>, <em>ỉꜣbty</em>, <em>rsy</em>, <em>mḥty</em>, <em>sḫty</em>, <em>nỉwty</em>, <em>ḥꜣty</em>, <em>ḥꜣty-ꜥ</em>, <em>nṯry</em>, <em>nswy</em>, <em>ꜣḫty</em>, <em>wꜥty</em>, <em>mꜣꜥty</em>, più il rilevamento morfologico automatico delle desinenze <em>-y / .y / .ty</em>.</li>
+                    </ul>
+                  </li>
+                  <li><span class="sub-ico">🚫</span> <strong>Negazione e Regola di Gunn (<code>ME_KNOWN_NEGATIONS</code>):</strong>
+                    particelle negative <em>n</em> (con glifo D35/D41 o davanti a verbo coniugato), <em>nn</em>, <em>n-ỉs</em> (<em>n ... ỉs</em>), <em>n-sp</em>, negazione d'esistenza <em>nn wn</em>, pronomi relativi negativi <em>ỉwty</em>, <em>ỉwt.t</em>, <em>ỉwty.w</em>, e verbi negativi <em>tm</em>, <em>tm.t</em>, <em>ỉmỉ / m</em> (vetitivo).<br />
+                    <strong>Applicazione automatica della Regola di Gunn:</strong>
+                    <div style="margin-top:4px; font-family:'Fira Code', monospace; font-size:0.82rem; color:var(--peach);">
+                      • n + sḏm=f ➔ nega il passato perfettivo («egli non fece / non udì»)<br />
+                      • n + sḏm.n=f ➔ nega il presente generale/abituale o la capacità («egli non fa / non può fare»)<br />
+                      • nn + sḏm=f ➔ nega il futuro prospettivo («egli non farà»)
+                    </div>
+                  </li>
+                  <li><span class="sub-ico">👤</span> <strong>Pronomi (tutte le 5 classi del Medio Egizio) (<code>ME_KNOWN_PRONOUNS</code>):</strong>
+                    <ul style="list-style:disc; margin-left:18px; margin-top:4px; font-size:0.86rem; color:var(--text-muted);">
+                      <li><strong>Pronomi Suffissi:</strong> <em>=ỉ, =k, =ṯ, =t, =f, =s, =n, =tn/=ṯn, =sn, =tw, =ny, =ṯny, =sny</em>, riconosciuti sia isolati sia attaccati a verbi, sostantivi o preposizioni.</li>
+                      <li><strong>Pronomi Dipendenti:</strong> <em>wỉ, tw, ṯw, ṯn, sw, sy, st, sn</em>.</li>
+                      <li><strong>Pronomi Indipendenti:</strong> <em>ỉnk, ntk, ntṯ, ntf, nts, ỉnn, nttn, ntsn</em>.</li>
+                      <li><strong>Pronomi e Aggettivi Dimostrativi:</strong> <em>pn, tn, pf, pfꜣ, tf, pw, pwy, twy, ỉpn, ỉptn, ỉpw, nf, pꜣ, tꜣ, nꜣ</em>.</li>
+                      <li><strong>Pronomi Relativi e Interrogativi:</strong> <em>nty, ntt, nty.w, ỉwty, ptr, pty, ỉḫ</em>.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 3: RICONOSCIMENTO PROPOSIZIONI & DISAMBIGUAZIONE -->
+        <div class="change-group" id="proposizioni-auto">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-gold">🏛️</div>
+            3. Riconoscimento Automatico delle Proposizioni &amp; Disambiguazione Segni
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Analizzatore di Proposizioni Multi-Parola (<code>detectEgyptianPropositions</code>):</strong>
+                rileva in tempo reale sull'intera iscrizione le principali strutture sintattiche:
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">✓</span> <strong>Proposizione d'Offerta Regale:</strong> formula <em>ḥtp-dỉ-nsw</em>.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Proposizioni Verbali Negative:</strong> applicazione contestuale della Regola di Gunn.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Proposizione Negativa Esistenziale:</strong> costrutto <em>nn wn</em>.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Proposizioni Principali, Narrative, Presentative e Condizionali:</strong> introduttori <em>ỉw</em>, <em>ꜥḥꜥ.n</em>, <em>wn.ỉn</em>, <em>mk</em>, <em>ỉst</em>, <em>ỉr</em>.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Proposizione Finale / Ottativa:</strong> formule <em>dỉ=f</em> («affinché egli conceda...»).</li>
+                  <li><span class="sub-ico">✓</span> <strong>Proposizione Relativa:</strong> introduttori <em>nty</em>, <em>ntt</em>, <em>ỉwty</em> e forme relative verbali <em>sḏmt.n=f / ỉr.n</em>.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Proposizione a Predicato Nominale:</strong> con pronome indipendente o copula <em>pw</em>, e costrutti Nisba.</li>
+                  <li><span class="sub-ico">✓</span> <strong>Evidenziazione interattiva:</strong> cliccando su una proposizione rilevata nel pannello, vengono selezionate ed evidenziate visivamente tutte le parole corrispondenti sulla stele e nel laboratorio.</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Pulsanti di Disambiguazione Rapida per Segni Polivalenti:</strong>
+                per i segni ad alta frequenza e ambiguità, sono stati aggiunti pulsanti dedicati di disambiguazione istantanea con ricalcolo live di POS, genere, numero, stato e traduzione:
+                <ul class="change-sublist">
+                  <li><span class="sub-ico">𓈖</span> <span class="glyph-pill">N35 𓈖</span>: pulsanti rapidi per <span class="meta-tag">📍 Prep. n</span>, <span class="meta-tag">🔮 Nisba ny / n(y)</span>, <span class="meta-tag">🚫 Negazione n</span>, <span class="meta-tag">👤 Pron. =n</span>.</li>
+                  <li><span class="sub-ico">𓂋</span> <span class="glyph-pill">D21 𓂋</span>: pulsanti rapidi tra <span class="meta-tag">📍 Prep. r</span> e <span class="meta-tag">🔮 Nisba ỉry</span>.</li>
+                  <li><span class="sub-ico">𓅓</span> <span class="glyph-pill">G17 𓅓 / Z11 𓇋𓅓</span>: pulsanti rapidi tra <span class="meta-tag">📍 Prep. m</span>, <span class="meta-tag">🔮 Nisba ỉmy</span> e <span class="meta-tag">Avv. ỉm</span>.</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 4: SISTEMA VERBALE & PRONTUARIO -->
+        <div class="change-group">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-green">📜</div>
+            4. Sistema Verbale Medio Egizio &amp; Prontuario Grammaticale
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Riorganizzazione completa dei tempi e delle forme verbali (<code>ME_VERB_TENSE_OPTIONS</code>):</strong>
+                paradigmi aggiornati e cliccabili per: Infinito, Passato <em>sḏm.n(=f)</em>, Presente generico <em>sḏm(=f)</em>, Presente specifico <em>ḥr sḏm</em>, Futuro <em>sḏm(=f)</em> futuro (e relativo passivo in <em>.t(w)</em>), Negazione dei tempi verbali (Regola di Gunn), Participio presente (imperfettivo con raddoppiamento), Participio passato (perfettivo), Participio passivo, Forma relativa presente <em>sḏmt(=f)</em>, Forma relativa passata <em>sḏmt.n(=f) / ỉr-n / ms-n</em>, Forma <em>sḏmty.fy</em> (participio futuro) e Stativo.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Nuova scheda "4 Classi Verbali" nel Prontuario:</strong> classificazione sistematica in <em>1. Verbi forti</em>, <em>2. Verbi geminati</em>, <em>3. Verbi deboli</em> e <em>4. Verbi extra deboli</em>, applicabili direttamente con un clic.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Tasto morfema rapido <code>ty.fy</code> (part.fut.):</strong> integrato nella tastiera virtuale (<code>#gmVirtualKeyboard</code>) con riconoscimento automatico di <em>sḏmty.fy/.sy/.sn</em> e della forma relativa presente <em>sḏmt=f</em> in <code>parseEgyptianMorphemes</code>.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Controllo Manuale sui Complementi Fonetici:</strong>
+                possibilità di disattribuire o ripristinare manualmente il ruolo di complemento fonetico su singoli segni o sull'intera parola (<code>toggleBoxPhoneticComplementRole</code>, pulsanti <em>✕ Non è compl. fonetico</em>, <em>🚫 Disattribuisci tutti</em> e <em>🔊 Ripristina rilevamento automatico</em>), così da trattare un segno come morfema o radicale autonomo quando necessario.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Drag &amp; Drop parole esteso a Pagina 2:</strong> rese trascinabili le tessere del nastro interlineare superiore e le righe dell'elenco laterale sinistro per il riordino rapido della sequenza di lettura.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Pulsanti Copia Soli Geroglifici Unicode:</strong> aggiunti pulsanti <code>𓊹📋 Copia Geroglifici</code> (in sequenza continua o spaziata per parola tenendo premuto <kbd class="kbd-tag">Shift</kbd>, oppure per la sola parola/selezione attiva) in tutte le 3 pagine di lavoro.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 5: GUI, PERSISTENZA E BUGFIX -->
+        <div class="change-group">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-peach">🛠️</div>
+            5. GUI, Persistenza su Disco &amp; Bugfix di Stabilità
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Sovrascrittura reale del file con Salva (<kbd class="kbd-tag">Ctrl+S</kbd>) (<code>saveProjectToFile</code>):</strong> corretto il salvataggio rapido affinché sovrascriva direttamente il file <code>.hiero.json</code> su disco tramite il <code>FileSystemFileHandle</code> attivo (o riavviando il salvataggio del file se la sessione era stata aperta senza handle diretto), invece di aggiornare solo la cache interna.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Fix ricorsione infinita sulle lacune (<code>Maximum call stack size exceeded</code>):</strong> eliminato il loop ricorsivo tra <code>computeContextualLacunaHypotheses</code>, <code>getOrInitWordGrammar</code> e <code>getPossibleWordTransliterations</code> tramite guardia di rientranza (<code>_computingLacunaBoxIds</code>) e lettura diretta sicura di <code>wordGrammarMap</code>.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Fix <code>ReferenceError: baseRot is not defined</code> (<code>refreshGroups</code>):</strong> spostata la definizione di <code>baseRot</code> fuori dal blocco condizionale <code>!b.isLacuna</code>, prevenendo errori al passaggio del mouse sui segni in lacuna.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Pulizia dell'interfaccia:</strong> rimozione di qualsiasi riferimento bibliografico o citazione superflua dall'interfaccia grafica per un'esperienza d'uso focalizzata e pulita.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- =====================================================================
+           RELEASE 1.0.1 (PRECEDENTE)
+           ===================================================================== -->
+      <article class="release-section" id="v1-0-1" style="opacity: 0.95;">
+        <div class="release-header">
+          <div class="release-header-left">
+            <h2 class="release-version-title">
+              Hieroglyph Studio v1.0.1
+              <span class="tag-badge tag-enh">Release Precedente</span>
+            </h2>
+            <div class="release-date">
+              📅 1 Novembre 2026 • Aggiornamento Filologico &amp; Sintassi Italiana
+            </div>
           </div>
         </div>
 
         <!-- GRUPPO 1: NUOVA PAGINA 3 - SINTASSI ITALIANA & TRADUZIONE DEFINITIVA -->
         <div class="change-group" id="pagina-3">
           <h3 class="change-group-title">
+            <div class="group-icon icon-gold">🇮🇹</div>
+            Nuova Pagina 3: Laboratorio di Traduzione Definitiva &amp; Sintassi Italiana
+          </h3>
             <div class="group-icon icon-gold">🇮🇹</div>
             Nuova Pagina 3: Laboratorio di Traduzione Definitiva &amp; Sintassi Italiana
           </h3>
@@ -881,7 +1124,7 @@
       </div>
 
       <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
-        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Apri Piattaforma v1.0.1</a>
+        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Apri Piattaforma v1.0.2</a>
         <a href="index.html" style="color:var(--text-muted); text-decoration:none;">Presentazione Progetto</a>
       </div>
 

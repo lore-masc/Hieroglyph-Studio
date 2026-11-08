@@ -2,7 +2,7 @@
 ### *Epigrafia Digitale Computazionale & Laboratorio Filologico di Medio Egizio*
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-f9e2af?style=for-the-badge&logo=github&logoColor=11111b)](https://your-username.github.io/your-repo-name/)
-[![Version](https://img.shields.io/badge/Version-v1.0.1-fab387?style=for-the-badge)](changelog.html)
+[![Version](https://img.shields.io/badge/Version-v1.0.2-fab387?style=for-the-badge)](changelog.html)
 [![Client-Side](https://img.shields.io/badge/Architecture-100%25%20Client--Side-a6e3a1?style=for-the-badge)](hieroglyph_studio.html)
 [![Unicode](https://img.shields.io/badge/Unicode%2015.0-1074%20Hieroglyphs-89b4fa?style=for-the-badge)](hieroglyph_studio.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-cba6f7?style=for-the-badge)](LICENSE)
@@ -118,7 +118,7 @@ Hieroglyph Studio integra due ambienti di lavoro complementari collegati in temp
 .
 ├── index.html               # Landing page di presentazione per GitHub Pages
 ├── hieroglyph_studio.html   # Applicazione web completa (Studio Epigrafico & Grammatica)
-├── changelog.html           # Registro cronologico aggiornamenti e note di rilascio (v1.0.1)
+├── changelog.html           # Registro cronologico aggiornamenti e note di rilascio (v1.0.2)
 ├── .hiero_bridge_state.json # File di stato e configurazione
 └── README.md                # Documentazione del progetto
 ```
