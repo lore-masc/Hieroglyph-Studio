@@ -4,12 +4,13 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-f9e2af?style=for-the-badge&logo=github&logoColor=11111b)](https://your-username.github.io/your-repo-name/)
 [![Version](https://img.shields.io/badge/Version-v1.0.2-fab387?style=for-the-badge)](changelog.html)
 [![Client-Side](https://img.shields.io/badge/Architecture-100%25%20Client--Side-a6e3a1?style=for-the-badge)](hieroglyph_studio.html)
+[![AI Assisted](https://img.shields.io/badge/Built%20with-AI%20Assistance-94e2d5?style=for-the-badge&logo=openai&logoColor=11111b)](README.md)
 [![Unicode](https://img.shields.io/badge/Unicode%2015.0-1074%20Hieroglyphs-89b4fa?style=for-the-badge)](hieroglyph_studio.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-cba6f7?style=for-the-badge)](LICENSE)
 
 ---
 
-**Hieroglyph Studio** è una piattaforma web scientifica open-source progettata per l'analisi epigrafica, il riconoscimento computazionale di glifi e lo studio filologico del **Medio Egizio** (Egiziano Classico). 
+**Hieroglyph Studio** è una piattaforma web scientifica open-source progettata per l'analisi epigrafica, il riconoscimento computazionale di glifi e lo studio filologico del **Medio Egizio** (Egiziano Classico), sviluppata con il supporto di strumenti avanzati di **Intelligenza Artificiale**. 
 
 L'applicazione è **100% statica e client-side**: non richiede server backend o database esterni, funziona interamente nel browser garantendo la massima velocità di calcolo, privacy assoluta dei dati archeologici e piena usabilità **offline**.
 
@@ -135,8 +136,10 @@ Hieroglyph Studio integra due ambienti di lavoro complementari collegati in temp
 
 ---
 
-## 📄 Licenza
+## 📄 Licenza & Note
 
 Distribuito sotto licenza **MIT**. Consulta il file `LICENSE` per ulteriori dettagli.
+
+> 🤖 **Sviluppo con Intelligenza Artificiale**: Questo progetto è stato progettato e implementato con l'ausilio di tecnologie di Intelligenza Artificiale avanzata per la visione computazionale client-side, l'ingegnerizzazione degli algoritmi epigrafici e la strutturazione dei database filologici del Medio Egizio.
 
 Realizzato per studenti, ricercatori, egittologi e appassionati di epigrafia antica.
