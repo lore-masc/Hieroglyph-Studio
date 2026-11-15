@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-  <title>Changelog & Note di Rilascio — Hieroglyph Studio v1.0.2</title>
-  <meta name="description" content="Changelog ufficiale e note di rilascio di Hieroglyph Studio v1.0.2: Espansione massiva del dizionario (315 lemmi), riconoscimento morfosintattico da traslitterazione, rilevatore proposizioni, paradigmi verbali e fix salvataggio." />
+  <title>Changelog & Note di Rilascio — Hieroglyph Studio v1.0.3</title>
+  <meta name="description" content="Changelog ufficiale e note di rilascio di Hieroglyph Studio v1.0.3: Modalità «Parole» sulla Foto, rilevamento automatico di Duale (.wy) e Plurale (.w) per ripetizione grafica di glifi identici, ritorno automatico allo Studio Epigrafico e fix grammaticali." />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231e1e2e'/%3E%3Cstop offset='100%25' stop-color='%2311111b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f9e2af'/%3E%3Cstop offset='100%25' stop-color='%23fab387'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23bg)' stroke='%23f9e2af' stroke-width='2.5'/%3E%3Crect x='6' y='6' width='52' height='52' rx='10' fill='none' stroke='%2345475a' stroke-width='1' stroke-dasharray='4 2'/%3E%3Ctext x='32' y='46' font-size='38' text-anchor='middle' fill='url(%23gold)' font-family='Segoe UI Historic, Noto Sans Egyptian Hieroglyphs, serif'%3E%F0%93%8B%B9%3C/text%3E%3C/svg%3E" />
@@ -552,7 +552,7 @@
       <ul class="nav-links">
         <li><a href="index.html#fasi-epigrafia">🏛️ 5 Fasi Epigrafia</a></li>
         <li><a href="index.html#fasi-grammatica">📜 5 Fasi Grammatica</a></li>
-        <li><a href="changelog.html" class="active">📝 Changelog v1.0.2</a></li>
+        <li><a href="changelog.html" class="active">📝 Changelog v1.0.3</a></li>
       </ul>
       <div class="nav-actions">
         <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header" title="Avvia la piattaforma interattiva">
@@ -565,11 +565,10 @@
   <!-- Mobile Quick Jump Bar -->
   <div class="mobile-nav-chips">
     <a href="index.html" class="mobile-chip">🏠 Home</a>
-    <a href="#v1-0-2" class="mobile-chip">✨ Versione 1.0.2</a>
-    <a href="#dizionario-315" class="mobile-chip">📚 Dizionario (315 lemmi)</a>
-    <a href="#morfosintassi-auto" class="mobile-chip">🧠 Morfosintassi Auto</a>
-    <a href="#proposizioni-auto" class="mobile-chip">🏛️ Proposizioni</a>
-    <a href="#sistema-verbale" class="mobile-chip">📜 Verbi &amp; Coniugatore</a>
+    <a href="#v1-0-3" class="mobile-chip">✨ Versione 1.0.3</a>
+    <a href="#modalita-parole-foto" class="mobile-chip">📖 Modalità Parole Foto</a>
+    <a href="#duale-plurale-ripetizione" class="mobile-chip">👯 Duale &amp; Plurale</a>
+    <a href="#v1-0-2" class="mobile-chip">📜 Versione 1.0.2</a>
     <a href="#v1-0-1" class="mobile-chip">📜 Versione 1.0.1</a>
     <a href="#v1-0-0" class="mobile-chip">📜 v1.0.0</a>
   </div>
@@ -579,7 +578,7 @@
     <section class="changelog-hero">
       <div class="container">
         <div class="version-badge-lg">
-          <span>v1.0.2 — 8 Novembre 2026</span>
+          <span>v1.0.3 — 15 Novembre 2026</span>
         </div>
 
         <h1 class="changelog-title">
@@ -587,7 +586,7 @@
         </h1>
 
         <p class="changelog-subtitle">
-          Espansione massiva del dizionario (315 lemmi), riconoscimento morfosintattico da traslitterazione, rilevatore automatico delle proposizioni, nuovi paradigmi verbali e fix di salvataggio.
+          Modalità «Parole» sulla Foto (etichette e anteprima dell'intera parola), rilevamento automatico di Duale (.wy) e Plurale (.w) per ripetizione grafica di glifi identici, navigazione automatica allo Studio Epigrafico e fix filologici.
         </p>
 
         <div class="changelog-meta-row">
@@ -602,23 +601,150 @@
     <div class="container changelog-body">
 
       <!-- =====================================================================
-           RELEASE 1.0.2 (ATTUALE)
+           RELEASE 1.0.3 (ATTUALE)
            ===================================================================== -->
-      <article class="release-section" id="v1-0-2">
+      <article class="release-section" id="v1-0-3">
         <div class="release-header">
           <div class="release-header-left">
             <h2 class="release-version-title">
-              Hieroglyph Studio v1.0.2
+              Hieroglyph Studio v1.0.3
               <span class="tag-badge tag-new">Versione Attuale</span>
             </h2>
             <div class="release-date">
-              📅 8 Novembre 2026 • Espansione Lessicale, Riconoscimento Morfosintattico &amp; Proposizioni
+              📅 15 Novembre 2026 • Modalità «Parole» sulla Foto, Duale/Plurale per Ripetizione &amp; Flusso Epigrafico
             </div>
           </div>
           <div>
             <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header">
-              <span>🚀 Avvia v1.0.2</span>
+              <span>🚀 Avvia v1.0.3</span>
             </a>
+          </div>
+        </div>
+
+        <!-- GRUPPO 1: MODALITÀ PAROLE SULLA FOTO -->
+        <div class="change-group" id="modalita-parole-foto">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-teal">📖</div>
+            1. Nuova Modalità «Parole» sulla Foto (Sezione 3 — Etichette &amp; Anteprima Parola)
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Nuova spunta <code>📖 Modalità «Parole» sulla Foto (Etichette &amp; Anteprima Parola)</code>:</strong>
+                aggiunta nel pannello laterale sinistro (Sezione 3: <em>Sostituzione &amp; Confini Glifi</em>) per commutare istantaneamente la visualizzazione sulla fotografia dai singoli glifi alle intere parole raggruppate:
+                <ul class="change-sublist">
+                  <li>
+                    <span class="sub-ico">🏷️</span>
+                    <div>
+                      <strong>Etichette e Cornici per Parola (<code>renderOverlay</code>):</strong> quando attiva, sostituisce le etichette dei singoli glifi con un'unica etichetta unificata sopra al riquadro complessivo di ciascuna parola (es. <code>#1 𓇓𓏏𓊵𓏙 ḥtp-dỉ-nsw</code>) accompagnata dal contorno tratteggiato dell'intero gruppo-parola.
+                    </div>
+                  </li>
+                  <li>
+                    <span class="sub-ico">🔍</span>
+                    <div>
+                      <strong>Scheda di Anteprima dell'Intera Parola al passaggio del mouse (<code>showWordHoverPreview</code>):</strong> con l'anteprima abilitata, passando il cursore su qualsiasi snap della foto viene mostrata la scheda riepilogativa dell'intera parola (sequenza geroglifica completa, codici Gardiner, traslitterazione filologica attiva, sintesi grammaticale, traduzione italiana contestuale e scomposizione di tutti i glifi costituenti).
+                    </div>
+                  </li>
+                  <li>
+                    <span class="sub-ico">💾</span>
+                    <div>
+                      <strong>Persistenza nel Progetto:</strong> l'impostazione <code>wordOverlayMode</code> viene salvata e ripristinata automaticamente nei file progetto <code>.hiero.json</code>.
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 2: DUALE E PLURALE PER RIPETIZIONE DI GLIFI IDENTICI -->
+        <div class="change-group" id="duale-plurale-ripetizione">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-mauve">👯</div>
+            2. Rilevamento Automatico di Duale (<code>.wy / .ty</code>) e Plurale (<code>.w / .wt</code>) per Ripetizione Grafica
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Riconoscimento della ripetizione ideografica (2× = Duale, 3× = Plurale):</strong>
+                quando una parola contiene due o tre glifi identici consecutivi (es. <code>𓊹𓊹 nṯr.wy</code> o <code>𓊹𓊹𓊹 nṯr.w</code>), l'analisi automatica intuisce che i glifi ripetuti non vanno letti foneticamente una seconda/terza volta, ma esprimono il numero grammaticale:
+                <ul class="change-sublist">
+                  <li>
+                    <span class="sub-ico">👯</span>
+                    <div>
+                      <strong>2 glifi uguali (Duale):</strong> il secondo glifo viene marcato col ruolo <em>Ripetizione grafica per Duale</em> (badge dedicato <code>👯 .wy</code>) e la traslitterazione filologica della parola assume automaticamente la desinenza duale (<code>.wy</code> maschile o <code>.ty</code> femminile) con numero grammaticale impostato su <strong>Duale</strong>.
+                    </div>
+                  </li>
+                  <li>
+                    <span class="sub-ico">🔢</span>
+                    <div>
+                      <strong>3 glifi uguali (Plurale):</strong> il secondo e il terzo glifo vengono marcati col ruolo <em>Ripetizione grafica per Plurale</em> (badge dedicato <code>🔢 .w</code>) e la parola assume la desinenza plurale (<code>.w</code> / <code>.wt</code>) con numero impostato su <strong>Plurale</strong>.
+                    </div>
+                  </li>
+                  <li>
+                    <span class="sub-ico">🏷️</span>
+                    <div>
+                      <strong>Badge grammaticali essenziali e puliti:</strong> le icone di ruolo morfologico (pronome suffisso, duale, plurale) compaiono sui singoli glifi sia nell'elenco parole sia nella barra orizzontale della proposizione in alto nel Laboratorio Filologico, mantenendo pulito il riquadro principale della tessera.
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 3: FLUSSO DI LAVORO & BUGFIX -->
+        <div class="change-group" id="flusso-fix-103">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-peach">🛠️</div>
+            3. Navigazione Automatica &amp; Correzioni Filologiche
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Ritorno automatico a «1. Studio Epigrafico» al caricamento di foto o progetti:</strong>
+                quando si apre una nuova immagine (da file o fotocamera) o si carica un progetto <code>.hiero.json</code> mentre ci si trova in <em>2. Laboratorio Filologico</em> o in <em>3. Traduzione Definitiva</em>, l'applicazione riporta automaticamente la vista in <strong>1. Studio Epigrafico</strong>.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Fix traslitterazione con desinenza <code>.wy (duale)</code> / <code>.ty</code> / <code>.w (plurale)</code>:</strong>
+                corretto il calcolo della traslitterazione filologica della parola (<code>getPossibleWordTransliterations</code>) e il classificatore automatico (<code>recognizeWordAutoCategories</code>) quando a un singolo simbolo viene impostata la lettura <code>.wy (duale)</code>, <code>.ty (duale femm.)</code> o <code>.w (plurale)</code>, evitando la falsa collisione con il dimostrativo <code>tꜣ</code> (causata dalle lettere di <em>"(duale)"</em>) e concatenando correttamente <code>.wy</code> alla radice della parola.
+              </div>
+            </li>
+
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Fix <code>ReferenceError: getGroupsMap is not defined</code> in <code>toggleBoxPhoneticComplementRole</code>:</strong>
+                sostituita la chiamata con <code>syncGroupOrderAndBoxes()</code> durante l'attivazione/disattivazione manuale del ruolo di complemento fonetico nel Laboratorio Filologico.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- =====================================================================
+           RELEASE 1.0.2 (PRECEDENTE)
+           ===================================================================== -->
+      <article class="release-section" id="v1-0-2" style="opacity: 0.96;">
+        <div class="release-header">
+          <div class="release-header-left">
+            <h2 class="release-version-title">
+              Hieroglyph Studio v1.0.2
+              <span class="tag-badge tag-enh">Release Precedente</span>
+            </h2>
+            <div class="release-date">
+              📅 8 Novembre 2026 • Espansione Lessicale, Riconoscimento Morfosintattico &amp; Proposizioni
+            </div>
           </div>
         </div>
 
@@ -1143,7 +1269,7 @@
       </div>
 
       <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
-        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Apri Piattaforma v1.0.2</a>
+        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Apri Piattaforma v1.0.3</a>
         <a href="index.html" style="color:var(--text-muted); text-decoration:none;">Presentazione Progetto</a>
       </div>
 
