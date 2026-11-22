@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-  <title>Changelog & Note di Rilascio — Hieroglyph Studio v1.0.3</title>
-  <meta name="description" content="Changelog ufficiale e note di rilascio di Hieroglyph Studio v1.0.3: Modalità «Parole» sulla Foto, rilevamento automatico di Duale (.wy) e Plurale (.w) per ripetizione grafica di glifi identici, ritorno automatico allo Studio Epigrafico e fix grammaticali." />
+  <title>Changelog & Note di Rilascio — Hieroglyph Studio v1.0.4</title>
+  <meta name="description" content="Changelog ufficiale e note di rilascio di Hieroglyph Studio v1.0.4: Auto-Segmentazione in Parole con proposte multiple e confidenza in tempo reale, Suggeritore Fonetico &amp; Dizionario on-demand con indice O(1), Motore di Ipotesi Filologiche &amp; Semantiche dai determinativi e fix morfologici." />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231e1e2e'/%3E%3Cstop offset='100%25' stop-color='%2311111b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f9e2af'/%3E%3Cstop offset='100%25' stop-color='%23fab387'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23bg)' stroke='%23f9e2af' stroke-width='2.5'/%3E%3Crect x='6' y='6' width='52' height='52' rx='10' fill='none' stroke='%2345475a' stroke-width='1' stroke-dasharray='4 2'/%3E%3Ctext x='32' y='46' font-size='38' text-anchor='middle' fill='url(%23gold)' font-family='Segoe UI Historic, Noto Sans Egyptian Hieroglyphs, serif'%3E%F0%93%8B%B9%3C/text%3E%3C/svg%3E" />
@@ -552,7 +552,7 @@
       <ul class="nav-links">
         <li><a href="index.html#fasi-epigrafia">🏛️ 5 Fasi Epigrafia</a></li>
         <li><a href="index.html#fasi-grammatica">📜 5 Fasi Grammatica</a></li>
-        <li><a href="changelog.html" class="active">📝 Changelog v1.0.3</a></li>
+        <li><a href="changelog.html" class="active">📝 Changelog v1.0.4</a></li>
       </ul>
       <div class="nav-actions">
         <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header" title="Avvia la piattaforma interattiva">
@@ -565,9 +565,11 @@
   <!-- Mobile Quick Jump Bar -->
   <div class="mobile-nav-chips">
     <a href="index.html" class="mobile-chip">🏠 Home</a>
-    <a href="#v1-0-3" class="mobile-chip">✨ Versione 1.0.3</a>
-    <a href="#modalita-parole-foto" class="mobile-chip">📖 Modalità Parole Foto</a>
-    <a href="#duale-plurale-ripetizione" class="mobile-chip">👯 Duale &amp; Plurale</a>
+    <a href="#v1-0-4" class="mobile-chip">✨ Versione 1.0.4</a>
+    <a href="#auto-segmentazione-parole" class="mobile-chip">✂️ Auto-Segmentazione</a>
+    <a href="#suggeritore-fonetico-dizionario" class="mobile-chip">📖 Suggeritore Fonetico</a>
+    <a href="#ipotesi-filologiche-determinativi" class="mobile-chip">🧭 Ipotesi Semantiche</a>
+    <a href="#v1-0-3" class="mobile-chip">📜 Versione 1.0.3</a>
     <a href="#v1-0-2" class="mobile-chip">📜 Versione 1.0.2</a>
     <a href="#v1-0-1" class="mobile-chip">📜 Versione 1.0.1</a>
     <a href="#v1-0-0" class="mobile-chip">📜 v1.0.0</a>
@@ -578,7 +580,7 @@
     <section class="changelog-hero">
       <div class="container">
         <div class="version-badge-lg">
-          <span>v1.0.3 — 15 Novembre 2026</span>
+          <span>v1.0.4 — 22 Novembre 2026</span>
         </div>
 
         <h1 class="changelog-title">
@@ -586,7 +588,7 @@
         </h1>
 
         <p class="changelog-subtitle">
-          Modalità «Parole» sulla Foto (etichette e anteprima dell'intera parola), rilevamento automatico di Duale (.wy) e Plurale (.w) per ripetizione grafica di glifi identici, navigazione automatica allo Studio Epigrafico e fix filologici.
+          Auto-Segmentazione in Parole con proposte multiple e confidenza live, Suggeritore Fonetico &amp; Dizionario on-demand con indice O(1) e lettura integrale, Motore di Ipotesi Filologiche &amp; Semantiche dai determinativi e fix morfologici.
         </p>
 
         <div class="changelog-meta-row">
@@ -601,14 +603,159 @@
     <div class="container changelog-body">
 
       <!-- =====================================================================
-           RELEASE 1.0.3 (ATTUALE)
+           RELEASE 1.0.4 (ATTUALE)
+           ===================================================================== -->
+      <article class="release-section" id="v1-0-4">
+        <div class="release-header">
+          <div class="release-header-left">
+            <h2 class="release-version-title">
+              Hieroglyph Studio v1.0.4
+              <span class="tag-badge tag-new">Versione Attuale</span>
+            </h2>
+            <div class="release-date">
+              📅 22 Novembre 2026 • Auto-Segmentazione Live, Suggeritore Fonetico O(1) &amp; Guida Semantica dai Determinativi
+            </div>
+          </div>
+          <div>
+            <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header">
+              <span>🚀 Avvia v1.0.4</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- GRUPPO 1: AUTO-SEGMENTAZIONE IN PAROLE -->
+        <div class="change-group" id="auto-segmentazione-parole">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-teal">✂️</div>
+            1. Auto-Segmentazione in Parole con Proposte Multiple &amp; Confidenza Live (Pagina 1)
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Motore di segmentazione automatica a programmazione dinamica / beam search (<code>computeTopWordSegmentations</code>, <code>scoreCandidateWordSegment</code>):</strong>
+                analizza tutti i glifi sul foglio o i soli glifi selezionati (con supporto a ordinamento SX→DX, DX→SX, colonne e impilamento verticale a quadrati tramite <code>sortBoxesByReadingOrder</code>) e genera fino a 4 proposte di suddivisione in parole ordinate per affidabilità.
+                <ul class="change-sublist">
+                  <li>
+                    <span class="sub-ico">📊</span>
+                    <div>
+                      <strong>Ricalcolo percentuale in tempo reale:</strong> cliccando <code>🔗</code> (unisci due parole) o <code>✂️</code> (spezza parola) all'interno di una proposta, la percentuale di confidenza e il colore del badge si aggiornano istantaneamente con indicatore di variazione (<code>▲ +X%</code> / <code>▼ -X%</code>) e pulsante <code>↺ Ripristina</code> per tornare ai tagli originali.
+                    </div>
+                  </li>
+                  <li>
+                    <span class="sub-ico">🧩</span>
+                    <div>
+                      <strong>Coesione determinativo + suffisso pronominale:</strong> il punteggio riconosce le sequenze canoniche del Medio Egizio con determinativo seguito da pronome suffisso (es. <code>wšb + A2 + =k</code>) evitando penalità di taglio errate.
+                    </div>
+                  </li>
+                  <li>
+                    <span class="sub-ico">🎛️</span>
+                    <div>
+                      <strong>Intestazione Sezione 4 compatta:</strong> i pulsanti <em>Auto-Segmenta</em> (<code>✂️</code>) e <em>Copia Geroglifici</em> (<code>📋</code>) sono ora compatti solo icona con tooltip istantanei al passaggio del mouse, preservando la piena leggibilità del titolo della sezione.
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 2: SUGGERITORE FONETICO & DIZIONARIO ON-DEMAND -->
+        <div class="change-group" id="suggeritore-fonetico-dizionario">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-mauve">📖</div>
+            2. Suggeritore Fonetico &amp; Dizionario On-Demand, Indice O(1) &amp; Lettura Integrale (Pagina 2)
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Query on-demand e indice in memoria O(1) (<code>getUnifiedDictIndex</code>):</strong>
+                eliminata la latenza al cambio parola nel Laboratorio Filologico; il suggeritore si attiva su richiesta tramite <code>🔍 Suggerisci dal Dizionario</code> o digitando nel campo di filtro rapido (per radice, significato italiano o codice Gardiner).
+              </div>
+            </li>
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Testo leggibile per intero, vista espansa e scheda di ispezione:</strong>
+                rimossi i troncamenti (<code>...</code>) dentro le schede dei candidati, aggiunto il pulsante <code>⤢ Espandi</code> / <code>⤡ Compatta</code> per aprire la griglia a tutta altezza e il pulsante <code>👁️</code> su ogni scheda per leggere tutti i dettagli (traslitterazione, geroglifici, codici Gardiner, grammatica, significato integrale e motivo) prima di applicare.
+              </div>
+            </li>
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Confini parola rapidi direttamente in Pagina 2:</strong>
+                aggiunti i pulsanti <code>⬅️🔗 Unisci con precedente</code>, <code>🔗➡️ Unisci con successiva</code>, <code>✂️</code> (spezza parola sulla riga del glifo) e <code>∅→</code> (marca dal glifo corrente fino a fine parola come determinativi muti).
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 3: MOTORE DI IPOTESI FILOLOGICHE & SEMANTICHE -->
+        <div class="change-group" id="ipotesi-filologiche-determinativi">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-gold">🧭</div>
+            3. Motore di Ipotesi Filologiche &amp; Semantiche Prioritarie dai Determinativi
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Rilevamento determinativi muti in coda e prima dei suffissi (<code>detectTrailingDeterminativeTail</code>, <code>detectSuffixAndPreDeterminatives</code>):</strong>
+                riconosce automaticamente blocchi multi-determinativo in coda (es. <code>N35×3</code> acqua/liquido + <code>D40</code> sforzo fisico) e determinativi collocati prima dei pronomi suffissi o desinenze (<code>=f</code>, <code>=k</code>, <code>=s</code>, <code>=n</code>, <code>=ṯ</code>, <code>=ṯn</code>, <code>=sn</code>, <code>.n=f</code>, <code>.tw</code>, <code>.t</code>, <code>.w</code>).
+              </div>
+            </li>
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Guida semantica per parole fuori dizionario (<code>buildStructuralSemanticHypotheses</code>):</strong>
+                quando non esiste una voce esatta nel dizionario, propone in testa le varie traslitterazioni plausibili e per ciascuna fornisce una guida al significato possibile basata su <strong>38 determinativi Gardiner</strong>, <strong>18 regole combinatorie</strong> (<code>DET_COMBO_SEMANTIC_RULES</code>) e sui derivati della stessa <strong>famiglia lessicale</strong> presenti nel dizionario (<code>findRelatedDictFamilyHints</code>).
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GRUPPO 4: FIX FILOLOGICI E STABILITÀ -->
+        <div class="change-group" id="fix-v1-0-4">
+          <h3 class="change-group-title">
+            <div class="group-icon icon-blue">🛠️</div>
+            4. Correzioni Morfologiche, Fonetiche &amp; Stabilità
+          </h3>
+
+          <ul class="change-items">
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Ligature unilittere e falsi plurali:</strong> esclusi i segni unilitteri puri dal raddoppiamento ideografico, riconoscendo correttamente <code>N35×3</code> = <code>mw</code> («acqua»), <code>N35×2</code> = <code>nn</code> e <code>M17×2</code> = <code>y</code>.
+              </div>
+            </li>
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Analisi verbale &amp; scheletro consonantico:</strong> raffinata la regola del passato relativo <code>sḏmt.n(=f)</code>, aggiunto supporto completo per <code>zn/sn</code> («superare/attraversare») e coniugazioni italiane con <code>=n</code> / <code>=k</code> / <code>=ṯ</code>; preservata la consonante radicale iniziale in <code>normalizeEgyptianPhoneticSkeleton</code> per evitare falsi positivi (es. <code>wšb</code> vs <code>zbk</code>).
+              </div>
+            </li>
+            <li class="change-item">
+              <span class="change-bullet">✦</span>
+              <div class="change-content">
+                <strong>Fix runtime:</strong> risolto <code>ReferenceError: dictMatch is not defined</code> in <code>inferWordGrammar</code> all'apertura del Laboratorio Filologico.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- =====================================================================
+           RELEASE 1.0.3
            ===================================================================== -->
       <article class="release-section" id="v1-0-3">
         <div class="release-header">
           <div class="release-header-left">
             <h2 class="release-version-title">
               Hieroglyph Studio v1.0.3
-              <span class="tag-badge tag-new">Versione Attuale</span>
             </h2>
             <div class="release-date">
               📅 15 Novembre 2026 • Modalità «Parole» sulla Foto, Duale/Plurale per Ripetizione &amp; Flusso Epigrafico
@@ -616,7 +763,7 @@
           </div>
           <div>
             <a href="hieroglyph_studio.html" class="btn btn-gold btn-sm-header">
-              <span>🚀 Avvia v1.0.3</span>
+              <span>🚀 Avvia Studio</span>
             </a>
           </div>
         </div>
@@ -1269,7 +1416,7 @@
       </div>
 
       <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
-        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Apri Piattaforma v1.0.3</a>
+        <a href="hieroglyph_studio.html" style="color:var(--gold); text-decoration:none; font-weight:600;">Apri Piattaforma v1.0.4</a>
         <a href="index.html" style="color:var(--text-muted); text-decoration:none;">Presentazione Progetto</a>
       </div>
 
